@@ -1,7 +1,0 @@
-{
-  "name": "HDR",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
