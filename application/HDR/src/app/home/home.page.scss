@@ -29,3 +29,14 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.align-img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-login {
+  font-family: monospace;
+  color: #26a69a;
+}
