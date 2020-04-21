@@ -25,6 +25,9 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+body {
+  background-color: white;
+}
 
 .text-bolder-700 {
     font-weight: 700;
@@ -64,4 +67,15 @@
 
 .margin-0 {
   margin: 0;
+}
+
+.align-img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-login {
+  font-family: monospace;
+  color: #26a69a;
 }
