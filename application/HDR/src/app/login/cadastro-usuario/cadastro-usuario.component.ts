@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { isNull } from 'util';
+import { isNull, isUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
 
 declare let $: any;
@@ -16,48 +16,63 @@ export class CadastroUsuarioComponent implements OnInit {
   senha: string = null;
   email: string = null;
   dataNascimento: Date = null;
-  indicaPaciente: boolean = false;
+  indicaPaciente: boolean;
 
   constructor(private service: HttpService) { }
 
   ngOnInit() { }
 
   public cadastrarNovoUsuario() {
-    this.validarDadosPreenchidos();
-
-    this.service.cadastrarUsuario()
+    let usuario = this.preencherUsuario();
+    this.service.cadastrarUsuario(usuario)
     .subscribe((result) => {
-      //código para o retorno da chamada do serviço
+      alert("O usuário foi criado com sucesso, seja bem vindo!")
+      //implementar redirecionamento para tela de login
     },
     (error) => {
-      console.error(error);
+      alert("Houve um problema na criação do usuário.")
     });; 
   }
 
-  public validarDadosPreenchidos() {
+  public preencherUsuario() {
+    let usuario = {
+      nomeCompleto: this.nomeCompleto,
+      cpfCrm: this.cpfCrm,
+      senha: this.senha,
+      email: this.email,
+      dataNascimento: this.dataNascimento,
+      indicaPaciente: this.indicaPaciente
+    }
+
+    return usuario;
+  }
+
+  public criarUsuario() {
+
     if(isNull(this.nomeCompleto)) {
-      alert("O campo NOME COMPLETO não foi preenchido.");  
-      return;
+      return alert("O campo NOME COMPLETO não foi preenchido.");  
     }
 
     if(isNull(this.cpfCrm)) {
-      alert("O campo CRM/CPF não foi preenchido.");  
-      return;
+      return alert("O campo CRM/CPF não foi preenchido.");  
     }
 
     if(isNull(this.senha)) {
-      alert("O campo SENHA não foi preenchido.");
-      return;  
+      return alert("O campo SENHA não foi preenchido.");  
     }
 
     if(isNull(this.email)) {
-      alert("O campo E-MAIL não foi preenchido.");  
-      return;
+      return alert("O campo E-MAIL não foi preenchido.");  
     }
 
     if(isNull(this.dataNascimento)) {
-      alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
-      return;
+      return alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
     }
+
+    if(isUndefined(this.indicaPaciente)) {
+      return alert("Informe o tipo de usuário.");  
+    }
+
+    this.cadastrarNovoUsuario();
   }
 }
