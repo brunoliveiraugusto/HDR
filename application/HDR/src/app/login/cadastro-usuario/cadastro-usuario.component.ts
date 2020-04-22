@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { isNull } from 'util';
+
 declare let $: any;
 
 @Component({
@@ -9,27 +10,39 @@ declare let $: any;
 })
 export class CadastroUsuarioComponent implements OnInit {
 
-  crmCpf: string = null;
+  cpfCrm: string = null;
   senha: string = null;
   email: string = null;
-  dataNascimento = null;
+  dataNascimento: Date = null;
   indicaPaciente: boolean = false;
 
   constructor() { }
 
-  ngOnInit() { 
-    $(document).ready(function(){
-      $('.datepicker').datepicker();
-    });
-  }
+  ngOnInit() { }
 
   public cadastrarNovoUsuario() {
-
+    this.validarDadosPreenchidos();
   }
 
   public validarDadosPreenchidos() {
-    if(isNull(this.crmCpf)) {
-      
+    if(isNull(this.cpfCrm)) {
+      alert("O campo CRM/CPF não foi preenchido.");  
+      return;
+    }
+
+    if(isNull(this.senha)) {
+      alert("O campo SENHA não foi preenchido.");
+      return;  
+    }
+
+    if(isNull(this.email)) {
+      alert("O campo E-MAIL não foi preenchido.");  
+      return;
+    }
+
+    if(isNull(this.dataNascimento)) {
+      alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
+      return;
     }
   }
 }

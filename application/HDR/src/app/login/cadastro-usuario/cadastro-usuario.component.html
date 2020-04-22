@@ -9,38 +9,38 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field offset-s1 col s10">
-          <input id="cpf-crm" type="text" class="validate">
-          <label for="cpf-crm">CPF/CRM</label>
+          <input type="text" [(ngModel)]="cpfCrm" name="cpfCrm" class="validate">
+          <label>CPF/CRM<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
-          <input id="senha" type="password" class="validate">
-          <label for="senha">SENHA</label>
+          <input type="password" [(ngModel)]="senha" name="senha" class="validate">
+          <label>SENHA<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
-          <input type="text" class="validate">
-          <label>E-MAIL</label>
+          <input type="text" [(ngModel)]="email" name="email" class="validate">
+          <label>E-MAIL<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
-          <input type="text" class="datepicker">
-          <label>DATA DE NASCIMENTO</label>
+          <input type="date" [(ngModel)]="dataNascimento" name="dataNascimento">
+          <label>DATA DE NASCIMENTO<span class="text-red"> *</span></label>
         </div>
         <div class="row col s12">
           <div class="col s6">
             <label>
-              <input name="group1" type="radio" checked />
+              <input type="radio" checked />
               <span>Sou paciente</span>
             </label>
           </div>
           <div class="col s6">
             <label>
-              <input name="group1" type="radio" checked />
+              <input type="radio" checked />
               <span>Sou médico</span>
             </label>
           </div>
         </div>
         <div class="row col s12">
           <div class="col s12">
-            <a class="waves-effect waves-light btn width-100">Cadastrar</a>
+            <a class="waves-effect waves-light btn width-100" (click)="cadastrarNovoUsuario()">Cadastrar</a>
           </div>
         </div>
       </div>
