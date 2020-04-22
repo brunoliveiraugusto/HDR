@@ -9,6 +9,10 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field offset-s1 col s10">
+          <input type="text" [(ngModel)]="nomeCompleto" name="nomeCompleto" class="validate">
+          <label>NOME COMPLETO<span class="text-red"> *</span></label>
+        </div>
+        <div class="input-field offset-s1 col s10">
           <input type="text" [(ngModel)]="cpfCrm" name="cpfCrm" class="validate">
           <label>CPF/CRM<span class="text-red"> *</span></label>
         </div>
