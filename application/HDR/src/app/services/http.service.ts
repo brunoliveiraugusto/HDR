@@ -10,8 +10,8 @@ export class HttpService {
 
   constructor(private httpService: HttpClient) { }
 
-  public cadastrarUsuario = (usuario: any): Observable<boolean> => {
-    let route: string = 'http://localhost:5000/CadastrarUsuario?usuario=' +usuario;
+  public cadastrarUsuario = (usuario: Usuario): Observable<boolean> => {
+    let route: string = 'http://localhost:5000/Usuario/CriarUsuario?usuario=' +JSON.stringify(usuario);
     return this.httpService.get<boolean>(route, {responseType: 'json'});
   }
 }

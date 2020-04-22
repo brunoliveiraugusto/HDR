@@ -9,6 +9,8 @@ namespace HDR.Context
 {
     public class Contexto : DbContext
     {
+        public Contexto() { }
+
         public Contexto(DbContextOptions options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { isNull, isUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
+import { Usuario } from '../../rules/Usuario';
 
 declare let $: any;
 
@@ -13,7 +14,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
   nomeCompleto: string = null;
   cpfCrm: string = null;
-  senha: string = null;
+  chaveAcesso: string = null;
   email: string = null;
   dataNascimento: Date = null;
   indicaPaciente: boolean;
@@ -35,14 +36,14 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   public preencherUsuario() {
-    let usuario = {
-      nomeCompleto: this.nomeCompleto,
-      cpfCrm: this.cpfCrm,
-      senha: this.senha,
-      email: this.email,
-      dataNascimento: this.dataNascimento,
-      indicaPaciente: this.indicaPaciente
-    }
+
+    var usuario = new Usuario();
+    usuario.NomeCompleto = this.nomeCompleto;
+    usuario.CpfCrm = this.cpfCrm;
+    usuario.ChaveAcesso = this.chaveAcesso;
+    usuario.Email = this.email;
+    usuario.DataNascimento = this.dataNascimento;
+    usuario.IndicaPaciente = this.indicaPaciente;
 
     return usuario;
   }
@@ -54,10 +55,10 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     if(isNull(this.cpfCrm)) {
-      return alert("O campo CRM/CPF não foi preenchido.");  
+      return alert("O campo CPF/CRM não foi preenchido.");  
     }
 
-    if(isNull(this.senha)) {
+    if(isNull(this.chaveAcesso)) {
       return alert("O campo SENHA não foi preenchido.");  
     }
 
@@ -70,7 +71,7 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     if(isUndefined(this.indicaPaciente)) {
-      return alert("Informe o tipo de usuário.");  
+      return alert("O tipo de usuário não foi preenchido.");  
     }
 
     this.cadastrarNovoUsuario();
