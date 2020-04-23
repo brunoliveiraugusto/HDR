@@ -1,5 +1,7 @@
 ﻿using HDR.Context;
 using HDR.Generics;
+using HDR.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,13 @@ namespace HDR.Rules
     public class Usuario
     {
         #region Propriedades e Construtor
+        public Usuario() { }
         public Usuario(Contexto context)
         {
             this.Contexto = context;
         }
 
+        [JsonIgnore]
         public Contexto Contexto { get; set; }
         public string NomeCompleto { get; set; }
         public string CpfCrm { get; set; }
@@ -29,12 +33,20 @@ namespace HDR.Rules
         {
             this.ValidarCamposObrigatoriosUsuario(usuario);
 
-            if (this.IndicaUsuarioExistente())
+            if (this.IndicaUsuarioExistente(usuario))
             {
                 throw new Exception("O CPF/CRM informado já encontra-se cadastrado. Use um novo ou se desejar cadastre uma nova senha.");
             }
 
-            this.Contexto.Add(usuario);
+            var novoUsuario = new UsuarioModel()
+            {
+                ChaveAcesso = usuario.ChaveAcesso,
+                DataNascimento = usuario.DataNascimento,
+                Login = usuario.CpfCrm,
+                NomeUsuario = usuario.NomeCompleto
+            };
+
+            this.Contexto.Add(novoUsuario);
             this.Contexto.SaveChanges();
 
             return true;
@@ -73,9 +85,9 @@ namespace HDR.Rules
             }
         }
 
-        public bool IndicaUsuarioExistente()
+        public bool IndicaUsuarioExistente(Usuario usuario)
         {
-            return this.Contexto.Usuarios.Any(usuario => usuario.Login == "");
+            return this.Contexto.Usuarios.Any(user => user.Login == usuario.CpfCrm);
         }
         #endregion
     }

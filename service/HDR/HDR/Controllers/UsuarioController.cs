@@ -12,19 +12,12 @@ namespace HDR.Controllers
     {
         [Route("Usuario/CriarUsuario")]
         [HttpPost()]
-        public bool CriarUsuario(Usuario usuario)
+        public bool CriarUsuario([FromBody]Usuario usuario)
         {
             using (var contexto = new Contexto())
             {
                 return new Usuario(contexto).CriarUsuario(usuario);
             }
-        }
-
-        [Route("Usuario/Teste")]
-        [HttpGet()]
-        public string Teste()
-        {
-            return "teste via postman";
         }
     }
 }

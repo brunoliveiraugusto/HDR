@@ -17,7 +17,7 @@ export class CadastroUsuarioComponent implements OnInit {
   chaveAcesso: string = null;
   email: string = null;
   dataNascimento: Date = null;
-  indicaPaciente: boolean;
+  tipoUsuario: string = null;
 
   constructor(private service: HttpService) { }
 
@@ -43,7 +43,7 @@ export class CadastroUsuarioComponent implements OnInit {
     usuario.ChaveAcesso = this.chaveAcesso;
     usuario.Email = this.email;
     usuario.DataNascimento = this.dataNascimento;
-    usuario.IndicaPaciente = this.indicaPaciente;
+    usuario.IndicaPaciente = (this.tipoUsuario === "paciente");
 
     return usuario;
   }
@@ -70,7 +70,7 @@ export class CadastroUsuarioComponent implements OnInit {
       return alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
     }
 
-    if(isUndefined(this.indicaPaciente)) {
+    if(isNull(this.tipoUsuario)) {
       return alert("O tipo de usuário não foi preenchido.");  
     }
 
