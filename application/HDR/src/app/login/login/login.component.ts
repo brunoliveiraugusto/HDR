@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { isNull } from 'util';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   indicaPaciente: boolean;
   tipoUsuario: string = null;
   
-  constructor() { }
+  constructor(private service: HttpService) { }
 
   ngOnInit() {}
 
@@ -35,5 +36,14 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.indicaPaciente = (this.tipoUsuario == "paciente");
+    this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
+    .subscribe((result) => {
+      if(result) {
+        
+      }
+    },
+    (error) => {
+      alert(error);
+    });; 
   }
 }

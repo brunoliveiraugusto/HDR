@@ -11,18 +11,6 @@ export class HttpService {
 
   constructor(private httpService: HttpClient) { }
 
-  /*public cadastrarUsuario2(usuario: Usuario){
-    let route: string = 'http://localhost:5000/Usuario/CriarUsuario';
-    //Criando header da requisição
-    var header = new Headers();
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-    //transformando objeto em json para passá-lo no corpo da requisição
-    var json = JSON.stringify(usuario);
-    var params = 'json='+json;
-    
-    return this.httpService.post(route, params, {headers: header});
-  }*/
-
   public cadastrarUsuario = (usuario: Usuario): Observable<boolean> => {
     let route: string = 'http://localhost:5000/Usuario/CriarUsuario';
 
@@ -34,6 +22,11 @@ export class HttpService {
 
     var json = JSON.stringify(usuario);
     return this.httpService.post<boolean>(route, json, httpOptions);
+  }
+
+  public realizarLogin = (login: string, password: string, indicaPaciente: boolean) : Observable<boolean> => {
+    let route: string = 'http://localhost:5000/Autenticacao/AutenticarUsuario?login='+login+'&password='+password+'&indicaPaciente='+indicaPaciente;
+    return this.httpService.get<boolean>(route, {responseType: 'json'});
   }
 
 }
