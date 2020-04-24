@@ -21,7 +21,11 @@ export class CadastroUsuarioComponent implements OnInit {
 
   constructor(private service: HttpService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    //$(document).ready(function(){
+      //$("#cpf").mask("999.999.999-99");
+    //});
+   }
 
   public cadastrarNovoUsuario() {
     let usuario = this.preencherUsuario();
@@ -75,5 +79,11 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     this.cadastrarNovoUsuario();
+  }
+
+  public removerAcentuacoes() {
+    let regex = new RegExp(/([^\d])+/gim);
+    let cpfCrmAux = this.cpfCrm.replace(regex, "");
+    this.cpfCrm = cpfCrmAux; 
   }
 }

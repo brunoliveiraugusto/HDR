@@ -24,5 +24,8 @@ namespace HDR.Models
 
         [Column("DATA_NASCIMENTO")]
         public DateTime DataNascimento { get; set; }
+
+        [Column("INDICA_PACIENTE")]
+        public bool IndicaPaciente { get; set; }
     }
 }

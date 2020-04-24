@@ -43,7 +43,8 @@ namespace HDR.Rules
                 ChaveAcesso = usuario.ChaveAcesso,
                 DataNascimento = usuario.DataNascimento,
                 Login = usuario.CpfCrm,
-                NomeUsuario = usuario.NomeCompleto
+                NomeUsuario = usuario.NomeCompleto,
+                IndicaPaciente = usuario.IndicaPaciente
             };
 
             this.Contexto.Add(novoUsuario);

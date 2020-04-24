@@ -13,7 +13,7 @@
           <label>NOME COMPLETO<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
-          <input type="text" [(ngModel)]="cpfCrm" name="cpfCrm" class="validate">
+          <input id="cpf" type="text" [(ngModel)]="cpfCrm" (keypress)="removerAcentuacoes()" name="cpfCrm" class="validate">
           <label>CPF/CRM<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
