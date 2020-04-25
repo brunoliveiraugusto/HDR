@@ -21,15 +21,15 @@ export class LoginComponent implements OnInit {
 
   public validarLogin() {
     if(isNull(this.username)) {
-      alert("CPF/CRM não foi informado.");
+      return alert("CPF/CRM não foi informado.");
     }
 
     if(isNull(this.password)) {
-      alert("SENHA não foi informada.");
+      return alert("SENHA não foi informada.");
     }
 
     if(isNull(this.tipoUsuario)) {
-      alert("Tipo de Usuário não foi informado.");
+      return alert("Tipo de Usuário não foi informado.");
     }
 
     this.login();

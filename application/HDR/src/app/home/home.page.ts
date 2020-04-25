@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare let $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,6 +11,10 @@ export class HomePage implements OnInit{
 
   constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    $(document).ready(function(){
+      $('.tabs').tabs();
+    });
+  }
 
 }
