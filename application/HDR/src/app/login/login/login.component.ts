@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { isNull } from 'util';
 import { HttpService } from 'src/app/services/http.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,8 @@ export class LoginComponent implements OnInit {
   password: string = null;
   indicaPaciente: boolean;
   tipoUsuario: string = null;
-  
-  constructor(private service: HttpService) { }
+
+  constructor(private service: HttpService, private router: Router) { }
 
   ngOnInit() {}
 
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
     .subscribe((result) => {
       if(result) {
-        
+        this.router.navigate(['/home']);        
       }
     },
     (error) => {
