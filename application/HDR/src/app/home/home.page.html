@@ -2,25 +2,34 @@
     <nav>
         <div class="nav-wrapper row container col s12">
           <div class="col s3">
-            <img src="https://www.lsnogueira.com.br/wp-content/uploads/2018/11/ls-nogueira-home-icone-saude.png" alt="Mão segurando coração" height="50" width="50">
+            <img src="https://www.lsnogueira.com.br/wp-content/uploads/2018/11/ls-nogueira-home-icone-saude.png" alt="Mão segurando coração" height="50" width="50" class="margin-top-4">
           </div>
-          <div class="offset-s7 col s2" routerLink="/login">Sair</div>
+          <div class="offset-s7 col s2 text-bolder-700 font-size-16" routerLink="/login">Sair</div>
         </div>
     </nav>
-    <ul id="tabs-swipe-demo" class="tabs">
-        <li class="tab col s3"><a href="#test-swipe-1">Test 1</a></li>
-        <li class="tab col s3"><a class="active" href="#test-swipe-2">Test 2</a></li>
-        <li class="tab col s3"><a href="#test-swipe-3">Test 3</a></li>
+    <ul id="tabs-swipe-demo" class="tabs top-9">
+        <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
+        <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
+        <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
     </ul>
     <div class="container">
-        <div id="test-swipe-1" class="col s12 blue">
-            <h1>TAB 1</h1>
+        <div id="swipe-1" class="col s12 blue">
+            <div class="col s12">
+
+            </div>
         </div>
-        <div id="test-swipe-2" class="col s12 red">
-            <h1>TAB 2</h1>
+        <div id="swipe-2" class="col s12 red">
+            <div class="col s12">
+
+            </div>
         </div>
-        <div id="test-swipe-3" class="col s12 green">
-            <h1>TAB 3</h1>
+        <div id="swipe-3" class="col s12 text-center">
+            <div class="col s12">
+                <p class="label-medico">Código de Acesso Médico</p>
+                <h2 *ngIf="codigoAcessoMedico != null && codigoAcessoMedico != ''">{{ codigoAcessoMedico }}</h2>
+                <h2 *ngIf="codigoAcessoMedico == null || codigoAcessoMedico == ''" class="text-italic">Código de Acesso não Gerado</h2>
+                <a class="waves-effect waves-light btn">Gerar Acesso</a>
+            </div>
         </div>
     </div>
 </div>
