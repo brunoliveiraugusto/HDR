@@ -9,12 +9,20 @@ declare let $: any;
 })
 export class HomePage implements OnInit{
 
-  constructor() {}
+  codigoAcessoMedico: string = null;
+
+  constructor() {
+    this.codigoAcessoMedico = "GJASD67S";
+  }
 
   ngOnInit() {
     $(document).ready(function(){
       $('.tabs').tabs();
     });
+  }
+
+  public gerarCodigoMedico() {
+    
   }
 
 }
