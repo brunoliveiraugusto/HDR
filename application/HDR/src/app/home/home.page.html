@@ -7,28 +7,30 @@
           <div class="offset-s7 col s2 text-bolder-700 font-size-16" routerLink="/login">Sair</div>
         </div>
     </nav>
-    <ul id="tabs-swipe-demo" class="tabs top-9">
-        <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
-        <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
-        <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
-    </ul>
-    <div class="container">
-        <div id="swipe-1" class="col s12 blue">
-            <div class="col s12">
-
+    <div class="col s12">
+        <ul id="tabs-swipe-demo" class="tabs top-9">
+            <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
+            <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
+            <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
+        </ul>
+        <div class="container">
+            <div id="swipe-1" class="col s12 blue">
+                <div class="col s12">
+    
+                </div>
             </div>
-        </div>
-        <div id="swipe-2" class="col s12 red">
-            <div class="col s12">
-
+            <div id="swipe-2" class="col s12 red">
+                <div class="col s12">
+    
+                </div>
             </div>
-        </div>
-        <div id="swipe-3" class="col s12 text-center">
-            <div class="col s12">
-                <p class="label-medico">Código de Acesso Médico</p>
-                <h2 *ngIf="codigoAcessoMedico != null && codigoAcessoMedico != ''">{{ codigoAcessoMedico }}</h2>
-                <h2 *ngIf="codigoAcessoMedico == null || codigoAcessoMedico == ''" class="text-italic">Código de Acesso não Gerado</h2>
-                <a class="waves-effect waves-light btn">Gerar Acesso</a>
+            <div id="swipe-3" class="col s12 center">
+                <div class="col s12">
+                    <label class="font-size-20">Código de Acesso Médico</label>
+                    <h3 *ngIf="codigoAcessoMedico != null && codigoAcessoMedico != ''" class="text-bolder-700">{{ codigoAcessoMedico }}</h3>
+                    <h3 *ngIf="codigoAcessoMedico == null || codigoAcessoMedico == ''" class="text-italic text-bolder-700">Código de Acesso não Gerado</h3>
+                    <a (click)="gerarCodigoMedico()" class="waves-effect waves-light btn">Gerar Código</a>
+                </div>
             </div>
         </div>
     </div>

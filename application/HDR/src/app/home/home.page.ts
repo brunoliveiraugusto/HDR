@@ -21,4 +21,8 @@ export class HomePage implements OnInit{
     });
   }
 
+  public gerarCodigoMedico() {
+    
+  }
+
 }
