@@ -19,5 +19,7 @@ namespace HDR.Context
         }
 
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<AcessoMedicoModel> AcessoMedicos { get; set; }
+
     }
 }
