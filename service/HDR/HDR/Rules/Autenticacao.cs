@@ -92,7 +92,7 @@ namespace HDR.Rules
             while (true)
             {
                 chaveGerada = new string(Enumerable.Repeat(chars, 8)
-                .Select(x => x[random.Next(x.Length)]).ToString());
+                .Select(x => x[random.Next(x.Length)]).ToArray());
 
                 var chaveExistente = this.Contexto.AcessoMedicos.Any(chave => chave.ChaveAcesso == chaveGerada);
 
