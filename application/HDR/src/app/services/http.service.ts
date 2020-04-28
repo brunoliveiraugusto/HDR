@@ -24,9 +24,14 @@ export class HttpService {
     return this.httpService.post<boolean>(route, json, httpOptions);
   }
 
-  public realizarLogin = (login: string, password: string, indicaPaciente: boolean) : Observable<boolean> => {
+  public realizarLogin = (login: string, password: string, indicaPaciente: boolean) : Observable<number> => {
     let route: string = 'http://localhost:5000/Autenticacao/AutenticarUsuario?login='+login+'&password='+password+'&indicaPaciente='+indicaPaciente;
-    return this.httpService.get<boolean>(route, {responseType: 'json'});
+    return this.httpService.get<number>(route, {responseType: 'json'});
+  }
+
+  public gerarChaveAcessoMedico = (idUsuario: number) : Observable<string> => {
+    let route: string = 'http://localhost:5000/Autenticacao/GerarChaveMedico?idUsuario='+idUsuario;
+    return this.httpService.get(route, {responseType: 'text'});
   }
 
 }

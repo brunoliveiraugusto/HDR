@@ -24,12 +24,12 @@
     
                 </div>
             </div>
-            <div id="swipe-3" class="col s12 center">
+            <div id="swipe-3" class="col s12 center">   
                 <div class="col s12">
-                    <label class="font-size-20">Código de Acesso Médico</label>
-                    <h3 *ngIf="codigoAcessoMedico != null && codigoAcessoMedico != ''" class="text-bolder-700">{{ codigoAcessoMedico }}</h3>
-                    <h3 *ngIf="codigoAcessoMedico == null || codigoAcessoMedico == ''" class="text-italic text-bolder-700">Código de Acesso não Gerado</h3>
-                    <a (click)="gerarCodigoMedico()" class="waves-effect waves-light btn">Gerar Código</a>
+                    <label class="font-size-22">Código de Acesso Médico</label>
+                    <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
+                    <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic">Código de Acesso não Gerado</h3>
+                    <a (click)="gerarChaveMedico()" class="waves-effect waves-light btn">Gerar Código</a>
                 </div>
             </div>
         </div>

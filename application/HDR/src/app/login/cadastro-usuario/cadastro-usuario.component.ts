@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isNull, isUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
 import { Usuario } from '../../rules/Usuario';
+import { Router } from '@angular/router';
 
 declare let $: any;
 
@@ -18,8 +19,9 @@ export class CadastroUsuarioComponent implements OnInit {
   email: string = null;
   dataNascimento: Date = null;
   tipoUsuario: string = null;
+  usuario: Usuario;
 
-  constructor(private service: HttpService) { }
+  constructor(private service: HttpService, private router: Router) { }
 
   ngOnInit() {
     //$(document).ready(function(){
@@ -31,8 +33,14 @@ export class CadastroUsuarioComponent implements OnInit {
     let usuario = this.preencherUsuario();
     this.service.cadastrarUsuario(usuario)
     .subscribe((result) => {
-      alert("O usuário foi criado com sucesso, seja bem vindo!")
-      //implementar redirecionamento para tela de login
+      alert("O usuário foi criado com sucesso, seja bem vindo!");
+        
+      this.nomeCompleto = null;
+      this.cpfCrm = null;
+      this.chaveAcesso = null;
+      this.email = null;
+      this.dataNascimento = null;
+      this.tipoUsuario = null;
     },
     (error) => {
       alert("Houve um problema na criação do usuário.")
@@ -41,15 +49,15 @@ export class CadastroUsuarioComponent implements OnInit {
 
   public preencherUsuario() {
 
-    var usuario = new Usuario();
-    usuario.NomeCompleto = this.nomeCompleto;
-    usuario.CpfCrm = this.cpfCrm;
-    usuario.ChaveAcesso = this.chaveAcesso;
-    usuario.Email = this.email;
-    usuario.DataNascimento = this.dataNascimento;
-    usuario.IndicaPaciente = (this.tipoUsuario === "paciente");
+    this.usuario = new Usuario();
+    this.usuario.NomeCompleto = this.nomeCompleto;
+    this.usuario.CpfCrm = this.cpfCrm;
+    this.usuario.ChaveAcesso = this.chaveAcesso;
+    this.usuario.Email = this.email;
+    this.usuario.DataNascimento = this.dataNascimento;
+    this.usuario.IndicaPaciente = (this.tipoUsuario === "paciente");
 
-    return usuario;
+    return this.usuario;
   }
 
   public criarUsuario() {

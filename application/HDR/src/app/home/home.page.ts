@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../services/http.service';
+import { ActivatedRoute } from '@angular/router';
 
 declare let $: any;
 
@@ -9,10 +11,13 @@ declare let $: any;
 })
 export class HomePage implements OnInit{
 
-  codigoAcessoMedico: string = null;
+  idUsuario: number;
+  chaveAcessoMedico: string = null;
 
-  constructor() {
-    this.codigoAcessoMedico = "GJASD67S";
+  constructor(private service: HttpService, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.idUsuario = Number.parseInt(params['idUsuario']);
+    });
   }
 
   ngOnInit() {
@@ -21,8 +26,14 @@ export class HomePage implements OnInit{
     });
   }
 
-  public gerarCodigoMedico() {
-    
+  public gerarChaveMedico() {
+    this.service.gerarChaveAcessoMedico(this.idUsuario)
+    .subscribe((chave) => {
+      this.chaveAcessoMedico = chave;
+    },
+    (error) => {
+      alert("Erro ao gerar chave.");
+    }); 
   }
 
 }

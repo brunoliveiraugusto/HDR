@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HDR.Models
 {
-    [Table("ACESSO_MEDICO")]
-    public class AcessoMedicoModel
+    [Table("CHAVE")]
+    public class ChaveModel
     {
-        [Key, Column("ID_ACESSO_MEDICO")]
-        public int IdAcessoMedico { get; set; }
+        [Key, Column("ID_CHAVE")]
+        public int IdChave { get; set; }
 
         [Column("CHAVE_ACESSO")]
         public string ChaveAcesso { get; set; }

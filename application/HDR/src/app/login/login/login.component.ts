@@ -38,13 +38,15 @@ export class LoginComponent implements OnInit {
   public login() {
     this.indicaPaciente = (this.tipoUsuario == "paciente");
     this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
-    .subscribe((result) => {
-      if(result) {
-        this.router.navigate(['/home']);        
+    .subscribe((idUsuario) => {
+      if(this.indicaPaciente) {
+        this.router.navigate(['/home', {'idUsuario': idUsuario}]);
+      } else {
+        
       }
     },
     (error) => {
-      alert(error);
-    });; 
+      alert("Usuário ou senha incorreto.");
+    }); 
   }
 }

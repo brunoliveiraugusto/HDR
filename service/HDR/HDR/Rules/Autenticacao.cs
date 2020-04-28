@@ -19,13 +19,15 @@ namespace HDR.Rules
         private Contexto Contexto { get; set; }
 
         #region Login
-        public bool AutenticarUsuario(string login, string password, bool indicaPaciente)
+        public int AutenticarUsuario(string login, string password, bool indicaPaciente)
         {
             this.ValidarDadosDeLoginPreenchido(login, password, indicaPaciente);
 
-            if(this.IndicaUsuarioValido(login, password, indicaPaciente))
+            int idUsuario = this.IndicaUsuarioValido(login, password, indicaPaciente);
+
+            if(idUsuario > 0)
             {
-                return true;
+                return idUsuario;
             }
             else
             {
@@ -51,9 +53,11 @@ namespace HDR.Rules
             }
         }
 
-        public bool IndicaUsuarioValido(string login, string password, bool indicaPaciente)
+        public int IndicaUsuarioValido(string login, string password, bool indicaPaciente)
         {
-            return this.Contexto.Usuarios.Any(usuario => usuario.Login == login && usuario.ChaveAcesso == password && usuario.IndicaPaciente == indicaPaciente);
+            return this.Contexto.Usuarios.Where(usuario => usuario.Login == login && usuario.ChaveAcesso == password && usuario.IndicaPaciente == indicaPaciente)
+                .FirstOrDefault()
+                .IdUsuario;
         }
         #endregion
 
@@ -69,7 +73,7 @@ namespace HDR.Rules
 
         public void InativarChavesUsuario(int idUsuario)
         {
-            var chavesAtivas = this.Contexto.AcessoMedicos.Where(chaveAcesso => chaveAcesso.IdUsuario == idUsuario && chaveAcesso.IndicaChaveAtiva).ToList();
+            var chavesAtivas = this.Contexto.Chaves.Where(chaveAcesso => chaveAcesso.IdUsuario == idUsuario && chaveAcesso.IndicaChaveAtiva).ToList();
 
             if(chavesAtivas.Count() > 0)
             {
@@ -78,7 +82,7 @@ namespace HDR.Rules
                     chave.IndicaChaveAtiva = false;
                     chave.DataCancelamento = DateTime.Now;
 
-                    this.Contexto.Add(chave);
+                    this.Contexto.Entry(chave).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     this.Contexto.SaveChanges();
                 }
             }
@@ -94,7 +98,7 @@ namespace HDR.Rules
                 chaveGerada = new string(Enumerable.Repeat(chars, 8)
                 .Select(x => x[random.Next(x.Length)]).ToArray());
 
-                var chaveExistente = this.Contexto.AcessoMedicos.Any(chave => chave.ChaveAcesso == chaveGerada);
+                var chaveExistente = this.Contexto.Chaves.Any(chave => chave.ChaveAcesso == chaveGerada);
 
                 if (chaveExistente)
                     continue;
@@ -107,7 +111,7 @@ namespace HDR.Rules
 
         public void SalvarChaveGerada(int idUsuario, string chave)
         {
-            var acessoMedico = new AcessoMedicoModel()
+            var chaveModel = new ChaveModel()
             {
                 ChaveAcesso = chave,
                 DataCriacao = DateTime.Now,
@@ -115,7 +119,7 @@ namespace HDR.Rules
                 IndicaChaveAtiva = true,
             };
 
-            this.Contexto.Add(acessoMedico);
+            this.Contexto.Add(chaveModel);
             this.Contexto.SaveChanges();
         }
         #endregion

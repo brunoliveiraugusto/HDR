@@ -1,4 +1,5 @@
 ﻿using HDR.Context;
+using HDR.Models;
 using HDR.Rules;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,7 +13,7 @@ namespace HDR.Controllers
     {
         [Route("Autenticacao/AutenticarUsuario")]
         [HttpGet()]
-        public bool AutenticarUsuario(string login, string password, bool indicaPaciente)
+        public int AutenticarUsuario(string login, string password, bool indicaPaciente)
         {
             using (var contexto = new Contexto())
             {
