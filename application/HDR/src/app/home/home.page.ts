@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../services/http.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare let $: any;
 
@@ -14,7 +14,7 @@ export class HomePage implements OnInit{
   idUsuario: number;
   chaveAcessoMedico: string = null;
 
-  constructor(private service: HttpService, private route: ActivatedRoute) {
+  constructor(private service: HttpService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.idUsuario = Number.parseInt(params['idUsuario']);
     });
@@ -39,5 +39,4 @@ export class HomePage implements OnInit{
     });
     } 
   }
-
 }

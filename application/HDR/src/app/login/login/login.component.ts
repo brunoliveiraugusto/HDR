@@ -37,21 +37,21 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
-  public validarChaveDigitada(chaveDigitada: string) {
-    if(isNull(chaveDigitada)) {
+  public validarChaveDigitada() {
+    if(isNull(this.chaveAcessoMedico)) {
       return alert("A chave de acesso não foi informada.");
     } else {
-      this.service.validarChaveAcessoMedico(chaveDigitada)
-      .subscribe((idUsuario) => {
-
-      }, (error) => {
-        
-      });
+      this.verificarChaveDigitada(this.chaveAcessoMedico);
     }
   }
 
   public verificarChaveDigitada(chave: string) {
-
+    this.service.validarChaveAcessoMedico(chave)
+      .subscribe((idUsuario) => {
+        this.router.navigate(['/home', {'idUsuario': idUsuario}]);
+      }, (error) => {
+        alert("A chave digitada é inválida.");
+      });
   }
 
   public login() {
@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home', {'idUsuario': idUsuario}]);
       } else if(!this.indicaPaciente && !isNaN(idUsuario)){
         this.exibirCampoChave = true;
-        this.validarChaveDigitada(this.chaveAcessoMedico);
       }
     },
     (error) => {

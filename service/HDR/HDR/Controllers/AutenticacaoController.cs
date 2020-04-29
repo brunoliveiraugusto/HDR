@@ -30,5 +30,15 @@ namespace HDR.Controllers
                 return new Autenticacao(contexto).GerarChaveMedico(idUsuario);
             }
         }
+
+        [Route("Autenticacao/ValidarChaveAcessoMedico")]
+        [HttpGet()]
+        public int ValidarChaveAcessoMedico(string chave)
+        {
+            using (var contexto = new Contexto())
+            {
+                return new Autenticacao(contexto).ValidarChaveAcesso(chave);
+            }
+        }
     }
 }

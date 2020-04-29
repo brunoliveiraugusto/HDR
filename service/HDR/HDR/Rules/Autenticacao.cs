@@ -127,6 +127,35 @@ namespace HDR.Rules
             this.Contexto.Add(chaveModel);
             this.Contexto.SaveChanges();
         }
+
+        public int ValidarChaveAcesso(string chave)
+        {
+            if(chave.IsNullOrEmpty())
+            {
+                throw new Exception("A chave de acesso não foi informada.");
+            }
+
+            var chaveAcesso = this.Contexto.Chaves.Where(key => key.IndicaChaveAtiva && key.ChaveAcesso == chave).FirstOrDefault();
+
+            if(!chaveAcesso.IsNull())
+            {
+                this.InativarChaveAcesso(chaveAcesso);
+                return chaveAcesso.IdUsuario;
+            }
+            else
+            {
+                throw new Exception("A chave digitada é inválida.");
+            }
+        }
+
+        public void InativarChaveAcesso(ChaveModel chave)
+        {
+            chave.IndicaChaveAtiva = false;
+            chave.DataCancelamento = DateTime.Now;
+
+            this.Contexto.Entry(chave).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            this.Contexto.SaveChanges();
+        }
         #endregion
     }
 }
