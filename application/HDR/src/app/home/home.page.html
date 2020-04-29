@@ -7,30 +7,28 @@
           <div class="offset-s7 col s2 text-bolder-700 font-size-16" routerLink="/login">Sair</div>
         </div>
     </nav>
-    <div class="col s12">
-        <ul id="tabs-swipe-demo" class="tabs top-9">
-            <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
-            <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
-            <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
-        </ul>
-        <div class="container">
-            <div id="swipe-1" class="col s12 blue">
-                <div class="col s12">
-    
-                </div>
+    <ul id="tabs-swipe-demo" class="tabs top-9">
+        <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
+        <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
+        <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
+    </ul>
+    <div class="container col s12">
+        <div id="swipe-1" class="col s12 blue">
+            <div class="col s12">
+
             </div>
-            <div id="swipe-2" class="col s12 red">
-                <div class="col s12">
-    
-                </div>
+        </div>
+        <div id="swipe-2" class="col s12 red">
+            <div class="col s12">
+
             </div>
-            <div id="swipe-3" class="col s12 center">   
-                <div class="col s12">
-                    <label class="font-size-22">Código de Acesso Médico</label>
-                    <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
-                    <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic">Código de Acesso não Gerado</h3>
-                    <a (click)="gerarChaveMedico()" class="waves-effect waves-light btn">Gerar Código</a>
-                </div>
+        </div>
+        <div id="swipe-3" class="col s12 position-element align-element">   
+            <div class="col s12">
+                <label class="font-size-22">Código de Acesso Médico</label>
+                <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
+                <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic margin-top-4">Código de Acesso não Gerado</h3>
+                <a (click)="gerarChaveMedico()" class="waves-effect waves-light btn margin-top-4">Gerar Código</a>
             </div>
         </div>
     </div>

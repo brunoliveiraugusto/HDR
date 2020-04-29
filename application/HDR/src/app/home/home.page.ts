@@ -27,13 +27,17 @@ export class HomePage implements OnInit{
   }
 
   public gerarChaveMedico() {
-    this.service.gerarChaveAcessoMedico(this.idUsuario)
-    .subscribe((chave) => {
+    if(isNaN(this.idUsuario) || this.idUsuario < 0) {
+      return alert("É necessário realizar a autenticação para usar esse recurso.");
+    } else {
+      this.service.gerarChaveAcessoMedico(this.idUsuario)
+      .subscribe((chave) => {
       this.chaveAcessoMedico = chave;
     },
     (error) => {
       alert("Erro ao gerar chave.");
-    }); 
+    });
+    } 
   }
 
 }

@@ -34,4 +34,9 @@ export class HttpService {
     return this.httpService.get(route, {responseType: 'text'});
   }
 
+  public validarChaveAcessoMedico = (chaveMedica: string) : Observable<number> => {
+    let route: string = 'http://localhost:5000/Autenticacao/ValidarChaveAcessoMedico?chave='+chaveMedica;
+    return this.httpService.get<number>(route, {responseType: 'json'});
+  }
+
 }

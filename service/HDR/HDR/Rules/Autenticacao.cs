@@ -64,6 +64,11 @@ namespace HDR.Rules
         #region Gerar Chave de Acesso Médico
         public string GerarChaveMedico(int idUsuario)
         {
+            if(idUsuario <= 0)
+            {
+                throw new Exception("É necessário realizar a autenticação para usar esse recurso.");
+            }
+
             this.InativarChavesUsuario(idUsuario);
             var chave = this.GerarChave();
             this.SalvarChaveGerada(idUsuario, chave);

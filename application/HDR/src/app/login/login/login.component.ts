@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   password: string = null;
   indicaPaciente: boolean;
   tipoUsuario: string = null;
+  exibirCampoChave: boolean = false;
+  chaveAcessoMedico: string;
 
   constructor(private service: HttpService, private router: Router) { }
 
@@ -35,14 +37,32 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
+  public validarChaveDigitada(chaveDigitada: string) {
+    if(isNull(chaveDigitada)) {
+      return alert("A chave de acesso não foi informada.");
+    } else {
+      this.service.validarChaveAcessoMedico(chaveDigitada)
+      .subscribe((idUsuario) => {
+
+      }, (error) => {
+        
+      });
+    }
+  }
+
+  public verificarChaveDigitada(chave: string) {
+
+  }
+
   public login() {
     this.indicaPaciente = (this.tipoUsuario == "paciente");
     this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
     .subscribe((idUsuario) => {
-      if(this.indicaPaciente) {
+      if(this.indicaPaciente && !isNaN(idUsuario)) {
         this.router.navigate(['/home', {'idUsuario': idUsuario}]);
-      } else {
-        
+      } else if(!this.indicaPaciente && !isNaN(idUsuario)){
+        this.exibirCampoChave = true;
+        this.validarChaveDigitada(this.chaveAcessoMedico);
       }
     },
     (error) => {
