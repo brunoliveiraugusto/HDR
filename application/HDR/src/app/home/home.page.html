@@ -13,9 +13,19 @@
         <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
     </ul>
     <div class="container col s12">
-        <div id="swipe-1" class="col s12 blue">
+        <div id="swipe-1" class="col s12 position-element">
             <div class="col s12">
-
+                <form action="#">
+                    <div class="file-field input-field no-margin">
+                      <div class="align-btn-new"> 
+                        <span>Selecione</span>
+                        <input id="img-file" class="box-shadow-button" type="file" (change)="carregarPdf($event)" multiple>
+                      </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col s12">
+                <a (click)="downloadPdf()" class="waves-effect waves-light btn margin-top-4">Baixar PDF</a>
             </div>
         </div>
         <div id="swipe-2" class="col s12 red">
