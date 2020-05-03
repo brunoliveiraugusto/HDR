@@ -14,6 +14,8 @@ declare let $: any;
 export class HomePage implements OnInit{
 
   idUsuario: number;
+  indicaPaciente: boolean;
+  
   chaveAcessoMedico: string = null;
 
   arquivos: Array<string> = new Array<string>();

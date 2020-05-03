@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
+    public struct DadosUsuario
+    {
+        public int IdUsuario { get; set; }
+        public bool IndicaPaciente { get; set; }
+    }
+
     public class Autenticacao
     {
         public Autenticacao(Contexto context)
@@ -23,11 +29,11 @@ namespace HDR.Rules
         {
             this.ValidarDadosDeLoginPreenchido(login, password, indicaPaciente);
 
-            int idUsuario = this.IndicaUsuarioValido(login, password, indicaPaciente);
+            var usuario = this.IndicaUsuarioValido(login, password, indicaPaciente);
 
-            if(idUsuario > 0)
+            if(usuario.IdUsuario > 0)
             {
-                return idUsuario;
+                return usuario.IdUsuario;
             }
             else
             {
@@ -53,11 +59,10 @@ namespace HDR.Rules
             }
         }
 
-        public int IndicaUsuarioValido(string login, string password, bool indicaPaciente)
+        public UsuarioModel IndicaUsuarioValido(string login, string password, bool indicaPaciente)
         {
             return this.Contexto.Usuarios.Where(usuario => usuario.Login == login && usuario.ChaveAcesso == password && usuario.IndicaPaciente == indicaPaciente)
-                .FirstOrDefault()
-                .IdUsuario;
+                .FirstOrDefault();
         }
         #endregion
 
