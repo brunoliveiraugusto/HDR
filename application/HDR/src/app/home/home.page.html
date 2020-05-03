@@ -14,8 +14,18 @@
     </ul>
     <div class="container col s12">
         <div id="swipe-1" class="col s12">
-            <div class="col s12  position-element">
-                <a (click)="abrirModal()" class="waves-effect waves-light btn margin-top-4">Baixar PDF</a>
+            <div class="col s12 row container style-arquivo" *ngFor="let arquivo of listaArquivos">
+                <div class="col s3">
+                    <img class="size-icon-download" src="https://image.flaticon.com/icons/png/128/1126/1126862.png" alt="ícone pdf">
+                </div>
+                <div class="col s6">
+                    <span class="style-text-name-file center">{{arquivo.nomeArquivo}}</span>
+                </div>
+                <div class="col s3" (click)="downloadArquivo(arquivo.NomeArquivo)">
+                    <img class="size-icon-download float-right" src="https://cdn.iconscout.com/icon/free/png-256/icloud-download-475016.png" alt="ícone de download">
+                </div>
+                <!--<a (click)="abrirModal()" class="waves-effect waves-light btn margin-top-4">Baixar PDF</a>-->
+                <hr>
             </div>
 
               <!-- Modal Structure -->

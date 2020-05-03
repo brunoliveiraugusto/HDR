@@ -15,6 +15,7 @@ export class HomePage implements OnInit{
 
   idUsuario: number;
   indicaPaciente: boolean;
+  idUsuarioMedico: number;
   
   chaveAcessoMedico: string = null;
 
@@ -27,6 +28,11 @@ export class HomePage implements OnInit{
   constructor(private service: HttpService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.idUsuario = Number.parseInt(params['idUsuario']);
+      this.indicaPaciente = params['indicaPaciente'] == "true";
+      this.idUsuarioMedico = Number.parseInt(params['idUsuarioMedico']);
+      if(this.idUsuario > 0 && this.indicaPaciente) {
+        this.carregarArquivos();
+      }
     });
   }
 
@@ -80,10 +86,10 @@ export class HomePage implements OnInit{
     this.abrirModal();
   }
 
-  public downloadPdf() {
+  public downloadArquivo(nomeArq: string) {
     const linkSource = this.arquivoExibido; 
     const downloadLink = document.createElement("a");
-    const fileName = "teste.pdf";
+    const fileName = nomeArq;
 
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
@@ -106,7 +112,10 @@ export class HomePage implements OnInit{
 
     this.service.salvarArquivoAnexado(objArquivo)
     .subscribe((result) => {
-      alert("O arquivo foi salvo com sucesso.")
+      alert("O arquivo foi salvo com sucesso.");
+      if(result) {
+        this.carregarArquivos();
+      }
     }, (error) => {
       alert("Houve um erro ao salvar o arquivo.");
     });

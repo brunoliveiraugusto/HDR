@@ -13,7 +13,7 @@ namespace HDR.Controllers
     {
         [Route("Autenticacao/AutenticarUsuario")]
         [HttpGet()]
-        public int AutenticarUsuario(string login, string password, bool indicaPaciente)
+        public DadosUsuario AutenticarUsuario(string login, string password, bool indicaPaciente)
         {
             using (var contexto = new Contexto())
             {

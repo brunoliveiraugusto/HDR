@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { isNull } from 'util';
+import { isNull, isNullOrUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
 import { Router } from '@angular/router'; 
 
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   tipoUsuario: string = null;
   exibirCampoChave: boolean = false;
   chaveAcessoMedico: string;
+  idUsuarioMedico: number = 0;
 
   constructor(private service: HttpService, private router: Router) { }
 
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
   public verificarChaveDigitada(chave: string) {
     this.service.validarChaveAcessoMedico(chave)
       .subscribe((idUsuario) => {
-        this.router.navigate(['/home', {'idUsuario': idUsuario}]);
+        this.router.navigate(['/home', {'idUsuario': idUsuario, 'indicaPaciente': this.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
       }, (error) => {
         alert("A chave digitada é inválida.");
       });
@@ -57,11 +58,13 @@ export class LoginComponent implements OnInit {
   public login() {
     this.indicaPaciente = (this.tipoUsuario == "paciente");
     this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
-    .subscribe((idUsuario) => {
-      if(this.indicaPaciente && !isNaN(idUsuario)) {
-        this.router.navigate(['/home', {'idUsuario': idUsuario}]);
-      } else if(!this.indicaPaciente && !isNaN(idUsuario)){
+    .subscribe((dadosUsuario) => {
+      if(this.indicaPaciente && !isNullOrUndefined(dadosUsuario) && dadosUsuario.indicaPaciente) {
+        this.router.navigate(['/home', {'idUsuario': dadosUsuario.idUsuario, 'indicaPaciente': dadosUsuario.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
+      } else if(!this.indicaPaciente && !isNullOrUndefined(dadosUsuario)){
         this.exibirCampoChave = true;
+        this.idUsuarioMedico = dadosUsuario.idUsuario;
+        this.indicaPaciente = dadosUsuario.indicaPaciente;        
       }
     },
     (error) => {

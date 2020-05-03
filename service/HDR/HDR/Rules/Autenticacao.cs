@@ -25,19 +25,22 @@ namespace HDR.Rules
         private Contexto Contexto { get; set; }
 
         #region Login
-        public int AutenticarUsuario(string login, string password, bool indicaPaciente)
+        public DadosUsuario AutenticarUsuario(string login, string password, bool indicaPaciente)
         {
             this.ValidarDadosDeLoginPreenchido(login, password, indicaPaciente);
 
             var usuario = this.IndicaUsuarioValido(login, password, indicaPaciente);
 
-            if(usuario.IdUsuario > 0)
-            {
-                return usuario.IdUsuario;
-            }
-            else
+            if(usuario.IsNull() || (!usuario.IsNull() && usuario.IdUsuario <= 0))
             {
                 throw new Exception("Usuário ou senha inválido.");
+            } else
+            {
+                return new DadosUsuario()
+                {
+                    IdUsuario = usuario.IdUsuario,
+                    IndicaPaciente = usuario.IndicaPaciente
+                };
             }
         }
 

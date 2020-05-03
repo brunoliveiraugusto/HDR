@@ -4,6 +4,7 @@ import { Headers, Http, Response } from '@angular/http'
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Arquivo } from '../rules/Arquivo';
+import { DadosUsuario } from '../rules/DadosUsuario';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,9 @@ export class HttpService {
     return this.httpService.post<boolean>(route, json, httpOptions);
   }
 
-  public realizarLogin = (login: string, password: string, indicaPaciente: boolean) : Observable<number> => {
+  public realizarLogin = (login: string, password: string, indicaPaciente: boolean) : Observable<any> => {
     let route: string = 'http://localhost:5000/Autenticacao/AutenticarUsuario?login='+login+'&password='+password+'&indicaPaciente='+indicaPaciente;
-    return this.httpService.get<number>(route, {responseType: 'json'});
+    return this.httpService.get<any>(route, {responseType: 'json'});
   }
 
   public gerarChaveAcessoMedico = (idUsuario: number) : Observable<string> => {
@@ -53,9 +54,9 @@ export class HttpService {
     return this.httpService.post<boolean>(route, json, httpOptions);
   }
   
-  public carregarArquivosAnexados = (idUsuario: number) : Observable<Array<Arquivo>> => {
+  public carregarArquivosAnexados = (idUsuario: number) : Observable<Array<any>> => {
     let route: string = 'http://localhost:5000/Arquivo/CarregarArquivosPorUsuario?chave='+idUsuario;
-    return this.httpService.get<Array<Arquivo>>(route, {responseType: 'json'});
+    return this.httpService.get<Array<any>>(route, {responseType: 'json'});
   }
 
 }
