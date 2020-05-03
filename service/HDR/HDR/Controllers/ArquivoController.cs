@@ -17,7 +17,8 @@ namespace HDR.Controllers
         {
             using (var contexto = new Contexto())
             {
-                return new Arquivo(contexto).SalvarArquivo(arquivo);
+                new Arquivo(contexto).SalvarArquivo(arquivo);
+                return true;
             }
         }
 

@@ -19,6 +19,8 @@ export class HomePage implements OnInit{
   arquivos: Array<string> = new Array<string>();
   arquivoExibido: string = null;
   nomeArquivo: string = null;
+  novoNomeArquivo: string = null;
+  listaArquivos: Array<Arquivo> = new Array<Arquivo>();
 
   constructor(private service: HttpService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
@@ -30,6 +32,8 @@ export class HomePage implements OnInit{
     $(document).ready(function(){
       $('.tabs').tabs();
     });
+
+    $('.modal').modal();
   }
 
   public gerarChaveMedico() {
@@ -49,11 +53,16 @@ export class HomePage implements OnInit{
   public carregarPdf(event) { 
     if (event.target.files != null && event.target.files.length > 0) {;
       //this.quantidadeImagens = event.target.files.length;
+      if(event.target.files.length > 1) {
+        this.fecharModal();
+        return alert("É permitido selecionar apenas um arquivo por vez.");
+      }
+
       for(let i = 0; i < event.target.files.length; i++) {
         let file = null;
         var reader = new FileReader();
         file = event.target.files[i];
-
+        this.nomeArquivo = file.name;
         reader.readAsDataURL(file);
 
         reader.onload = (file) => { 
@@ -66,6 +75,7 @@ export class HomePage implements OnInit{
         } 
       }
     }
+    this.abrirModal();
   }
 
   public downloadPdf() {
@@ -78,27 +88,36 @@ export class HomePage implements OnInit{
     downloadLink.click();
   }
 
-  public validarPdfAnexado() {
+  public validarArquivoAnexado() {
     if(isNullOrUndefined(this.arquivoExibido))
       return alert("Nenhum arquivo pdf foi selecionado.");    
     
-    this.salvarPdfAnexado();
+    this.salvarArquivoAnexado();
   }
 
-  public salvarPdfAnexado() {
+  public salvarArquivoAnexado() {
+    if(!isNullOrUndefined(this.novoNomeArquivo)) {
+      this.nomeArquivo = this.ajustarNomeArquivoSelecionado();
+    }
+
     var objArquivo =  this.preencherObjetoArquivo(); 
 
     this.service.salvarArquivoAnexado(objArquivo)
     .subscribe((result) => {
-      alert("O arquivo selecionado foi salvo com sucesso.")
+      alert("O arquivo foi salvo com sucesso.")
     }, (error) => {
       alert("Houve um erro ao salvar o arquivo.");
     });
   }
 
+  public ajustarNomeArquivoSelecionado() {
+    let nomeArquivoPartido = this.nomeArquivo.split(".");
+    this.novoNomeArquivo += nomeArquivoPartido[nomeArquivoPartido.length - 1];
+    return this.novoNomeArquivo;
+  }
+
   public preencherObjetoArquivo() {
     var arquivo = new Arquivo();
-
     arquivo.ArquivoAnexado = this.arquivoExibido;
     arquivo.DataCriacao = new Date();
     arquivo.DataExclusao = null;
@@ -109,6 +128,19 @@ export class HomePage implements OnInit{
   }
 
   public carregarArquivos() {
-    
+    this.service.carregarArquivosAnexados(this.idUsuario)
+    .subscribe((result) => {
+      this.listaArquivos = result;
+    }, (error) => {
+      console.log("Erro ao carregar os arquivos salvo.")
+    });
+  }
+
+  public abrirModal() {
+    $('#modalArquivo').modal('open');
+  }
+
+  public fecharModal() {
+    $('#modalArquivo').modal('hide');
   }
 }

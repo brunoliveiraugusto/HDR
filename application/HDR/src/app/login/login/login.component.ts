@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   password: string = null;
   indicaPaciente: boolean;
   tipoUsuario: string = null;
-  exibirCampoChave: boolean = true;
+  exibirCampoChave: boolean = false;
   chaveAcessoMedico: string;
 
   constructor(private service: HttpService, private router: Router) { }

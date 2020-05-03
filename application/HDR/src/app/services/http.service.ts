@@ -40,7 +40,7 @@ export class HttpService {
     return this.httpService.get<number>(route, {responseType: 'json'});
   }
 
-  public salvarArquivoAnexado = (pdf: Arquivo): Observable<boolean> => {
+  public salvarArquivoAnexado = (arq: Arquivo): Observable<boolean> => {
     let route: string = 'http://localhost:5000/Arquivo/SalvarArquivo';
 
     const httpOptions = {
@@ -49,7 +49,7 @@ export class HttpService {
       })
     };
 
-    var json = JSON.stringify(pdf);
+    var json = JSON.stringify(arq);
     return this.httpService.post<boolean>(route, json, httpOptions);
   }
   
