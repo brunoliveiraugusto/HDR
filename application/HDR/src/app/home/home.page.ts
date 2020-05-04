@@ -86,8 +86,8 @@ export class HomePage implements OnInit{
     this.abrirModal();
   }
 
-  public downloadArquivo(nomeArq: string) {
-    const linkSource = this.arquivoExibido; 
+  public downloadArquivo(nomeArq: string, arqBase: string) {
+    const linkSource = arqBase; 
     const downloadLink = document.createElement("a");
     const fileName = nomeArq;
 
@@ -123,7 +123,7 @@ export class HomePage implements OnInit{
 
   public ajustarNomeArquivoSelecionado() {
     let nomeArquivoPartido = this.nomeArquivo.split(".");
-    this.novoNomeArquivo += nomeArquivoPartido[nomeArquivoPartido.length - 1];
+    this.novoNomeArquivo += "."+nomeArquivoPartido[nomeArquivoPartido.length - 1];
     return this.novoNomeArquivo;
   }
 

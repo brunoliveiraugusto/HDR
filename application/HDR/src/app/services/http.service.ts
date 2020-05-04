@@ -55,7 +55,7 @@ export class HttpService {
   }
   
   public carregarArquivosAnexados = (idUsuario: number) : Observable<Array<any>> => {
-    let route: string = 'http://localhost:5000/Arquivo/CarregarArquivosPorUsuario?chave='+idUsuario;
+    let route: string = 'http://localhost:5000/Arquivo/CarregarArquivosPorUsuario?idUsuario='+idUsuario;
     return this.httpService.get<Array<any>>(route, {responseType: 'json'});
   }
 

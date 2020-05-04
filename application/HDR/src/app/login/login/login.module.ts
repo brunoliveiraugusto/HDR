@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { LoginComponent } from './login.component';
       }
     ])
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent, LoadingComponent]
 })
 export class LoginComponentModule {}

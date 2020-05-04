@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   chaveAcessoMedico: string;
   idUsuarioMedico: number = 0;
 
+  exibeLoading: boolean = false;
+
   constructor(private service: HttpService, private router: Router) { }
 
   ngOnInit() {}
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       return alert("Tipo de Usuário não foi informado.");
     }
 
+    this.exibeLoading = true;
     this.login();
   }
 
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
     if(isNull(this.chaveAcessoMedico)) {
       return alert("A chave de acesso não foi informada.");
     } else {
+      this.exibeLoading = true;
       this.verificarChaveDigitada(this.chaveAcessoMedico);
     }
   }
@@ -49,8 +53,10 @@ export class LoginComponent implements OnInit {
   public verificarChaveDigitada(chave: string) {
     this.service.validarChaveAcessoMedico(chave)
       .subscribe((idUsuario) => {
+        this.exibeLoading = false;
         this.router.navigate(['/home', {'idUsuario': idUsuario, 'indicaPaciente': this.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
       }, (error) => {
+        this.exibeLoading = false;
         alert("A chave digitada é inválida.");
       });
   }
@@ -60,14 +66,17 @@ export class LoginComponent implements OnInit {
     this.service.realizarLogin(this.username, this.password, this.indicaPaciente)
     .subscribe((dadosUsuario) => {
       if(this.indicaPaciente && !isNullOrUndefined(dadosUsuario) && dadosUsuario.indicaPaciente) {
+        this.exibeLoading = false;
         this.router.navigate(['/home', {'idUsuario': dadosUsuario.idUsuario, 'indicaPaciente': dadosUsuario.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
       } else if(!this.indicaPaciente && !isNullOrUndefined(dadosUsuario)){
+        this.exibeLoading = false;
         this.exibirCampoChave = true;
         this.idUsuarioMedico = dadosUsuario.idUsuario;
         this.indicaPaciente = dadosUsuario.indicaPaciente;        
       }
     },
     (error) => {
+      this.exibeLoading = false;
       alert("Usuário ou senha incorreto.");
     }); 
   }

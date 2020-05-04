@@ -31,8 +31,11 @@
           </div>
         </div>
         <div class="row col s12">
-          <div class="col s12">
+          <div class="col s12" *ngIf="!exibeLoading">
             <a class="waves-effect waves-light btn width-100" (click)="validarLogin()">Entrar</a>
+          </div>
+          <div class="offset-s5 col s12" *ngIf="exibeLoading">
+            <app-loading></app-loading>
           </div>
           <div class="col s12 margin-top-4">
             <p class="font-size-14 text-center margin-0 color-cinza">Ainda não é cadastrado? <a class="color-salmao" routerLink="/cadastro-usuario">Cadastre-se</a></p>
@@ -48,8 +51,11 @@
           <label for="chaveMedica">CHAVE DE ACESSO</label>
         </div>    
         <div class="col s12">
-          <div class="col s12">
+          <div class="col s12" *ngIf="!exibeLoading">
             <a class="waves-effect waves-light btn width-100" (click)="validarChaveDigitada()">Validar</a>
+          </div>
+          <div class="offset-s5 col s12" *ngIf="exibeLoading">
+            <app-loading></app-loading>
           </div>
         </div>
       </div>

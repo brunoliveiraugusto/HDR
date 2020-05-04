@@ -1,31 +1,29 @@
 <div>
     <nav>
-        <div class="nav-wrapper row container col s12">
-          <div class="col s3">
-            <img src="https://www.lsnogueira.com.br/wp-content/uploads/2018/11/ls-nogueira-home-icone-saude.png" alt="Mão segurando coração" height="50" width="50" class="margin-top-4">
+        <div class="nav-wrapper container col s12">
+          <div class="col s3" style="display: inline;">
+            <img src="https://www.lsnogueira.com.br/wp-content/uploads/2018/11/ls-nogueira-home-icone-saude.png" alt="Mão segurando coração" height="50" width="50" class="margin-top-0-5">
           </div>
-          <div class="offset-s7 col s2 text-bolder-700 font-size-16" routerLink="/login">Sair</div>
+          <span class="text-bolder-700 font-size-16 float-right" routerLink="/login">Sair</span>
         </div>
     </nav>
-    <ul id="tabs-swipe-demo" class="tabs top-9">
+    <ul id="tabs-swipe-demo" class="tabs">
         <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
         <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
         <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
     </ul>
     <div class="container col s12">
         <div id="swipe-1" class="col s12">
-            <div class="col s12 row container style-arquivo" *ngFor="let arquivo of listaArquivos">
-                <div class="col s3">
-                    <img class="size-icon-download" src="https://image.flaticon.com/icons/png/128/1126/1126862.png" alt="ícone pdf">
+            <div class="col s12 row" *ngFor="let arquivo of listaArquivos" style="margin-top: 5%;">
+                <div class="col s2">
+                    <img class="size-icon-download" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/image-x-generic-icon.png" alt="ícone pdf">
                 </div>
-                <div class="col s6">
-                    <span class="style-text-name-file center">{{arquivo.nomeArquivo}}</span>
+                <div class="col s8 text-center" style="padding-top: 3%;">
+                    <span class="style-text-name-file">{{arquivo.nomeArquivo}}</span>
                 </div>
-                <div class="col s3" (click)="downloadArquivo(arquivo.NomeArquivo)">
+                <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
                     <img class="size-icon-download float-right" src="https://cdn.iconscout.com/icon/free/png-256/icloud-download-475016.png" alt="ícone de download">
                 </div>
-                <!--<a (click)="abrirModal()" class="waves-effect waves-light btn margin-top-4">Baixar PDF</a>-->
-                <hr>
             </div>
 
               <!-- Modal Structure -->
@@ -50,13 +48,13 @@
                 <input [hidden]="true" class="align-btn-new" type="file" (change)="carregarPdf($event)" accept="application/pdf, image/*" #file>
             </div>
         </div>
-        <div id="swipe-2" class="col s12 red">
+        <div id="swipe-2" class="col s12">
             <div class="col s12">
 
             </div>
         </div>
-        <div id="swipe-3" class="col s12 position-element align-element">   
-            <div class="col s12">
+        <div id="swipe-3" class="col s12">   
+            <div class="col s12 center">
                 <label class="font-size-22">Código de Acesso Médico</label>
                 <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
                 <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic margin-top-4">Código de Acesso não Gerado</h3>
