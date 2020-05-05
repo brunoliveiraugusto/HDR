@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { AnexoComponent } from '../home-tabs/anexo/anexo.component';
 import { ChaveMedicoComponent } from '../home-tabs/chave-medico/chave-medico.component';
+import { ComponentsModule } from '../components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild([
       {
         path: '',

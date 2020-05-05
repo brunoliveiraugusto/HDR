@@ -3,7 +3,7 @@
   <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
   <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic margin-top-4">Código de Acesso não Gerado</h3>
   <a (click)="gerarChaveMedico()" *ngIf="!exibeLoading" class="waves-effect waves-light btn margin-top-4">Gerar Código</a>
-  <!--<div class="offset-s5 col s12" *ngIf="exibeLoading">
+  <div class="offset-s5 col s12" *ngIf="exibeLoading">
     <app-loading></app-loading>
-  </div>-->
+  </div>
 </div>

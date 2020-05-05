@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
-import { LoadingComponent } from '../../loading/loading.component';
+import { ComponentsModule } from '../../components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -19,6 +20,6 @@ import { LoadingComponent } from '../../loading/loading.component';
       }
     ])
   ],
-  declarations: [LoginComponent, LoadingComponent]
+  declarations: [LoginComponent]
 })
 export class LoginComponentModule {}
