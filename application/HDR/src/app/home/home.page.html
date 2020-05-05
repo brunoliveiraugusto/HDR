@@ -14,39 +14,12 @@
     </ul>
     <div class="container col s12">
         <div id="swipe-1" class="col s12">
-            <div class="col s12 row" *ngFor="let arquivo of listaArquivos" style="margin-top: 5%;">
-                <div class="col s2">
-                    <img class="size-icon-download" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/image-x-generic-icon.png" alt="ícone pdf">
-                </div>
-                <div class="col s8 text-center" style="padding-top: 3%;">
-                    <span class="style-text-name-file">{{arquivo.nomeArquivo}}</span>
-                </div>
-                <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
-                    <img class="size-icon-download float-right" src="https://cdn.iconscout.com/icon/free/png-256/icloud-download-475016.png" alt="ícone de download">
-                </div>
-            </div>
-
-              <!-- Modal Structure -->
-            <div id="modalArquivo" class="modal">
-                <div class="modal-content">
-                    <h4 class="text-color">Upload Arquivo</h4>
-                    <p>Olá, você selecionou o arquivo <span class="text-italic">{{nomeArquivo}}</span>, caso queira ajustar o nome do arquivo
-                        insira um novo nome no campo abaixo, caso contrário basta clicar em Upload ou Cancelar.
-                    </p>
-                    <input id="arquivoNome" [(ngModel)]="novoNomeArquivo" name="novoNomeArquivo" type="text" class="validate">
-                    <label for="arquivoNome">Dê ao seu arquivo um novo nome</label>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat color-salmao">Cancelar</a>
-                    <a href="#!" (click)="validarArquivoAnexado()" class="modal-close waves-effect waves-green btn-flat text-color">Upload</a>
-                </div>
-            </div>
-            <div class="col s12">
-                <button class="align-btn-new" type="file" (click)="file.click()">
-                    <span class="font-size-button">+</span>
-                </button>
-                <input [hidden]="true" class="align-btn-new" type="file" (change)="carregarPdf($event)" accept="application/pdf, image/*" #file>
-            </div>
+            <app-anexo
+                [idUsuario]="idUsuario"
+                [indicaPaciente]="indicaPaciente"
+                [idUsuarioMedico]="idUsuarioMedico"    
+            >
+            </app-anexo>
         </div>
         <div id="swipe-2" class="col s12">
             <div class="col s12">
