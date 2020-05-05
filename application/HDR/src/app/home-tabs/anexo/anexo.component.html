@@ -1,12 +1,12 @@
 <div class="col s12 row" *ngFor="let arquivo of listaArquivos" style="margin-top: 5%;">
   <div class="col s2">
-      <img class="size-icon-download" src="https://icons.iconarchive.com/icons/papirus-team/papirus-mimetypes/512/image-x-generic-icon.png" alt="ícone pdf">
+      <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
   </div>
   <div class="col s8 text-center" style="padding-top: 3%;">
       <span class="style-text-name-file">{{arquivo.nomeArquivo}}</span>
   </div>
   <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
-      <img class="size-icon-download float-right" src="https://cdn.iconscout.com/icon/free/png-256/icloud-download-475016.png" alt="ícone de download">
+      <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
   </div>
 </div>
 
