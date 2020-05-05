@@ -17,8 +17,7 @@
             <app-anexo
                 [idUsuario]="idUsuario"
                 [indicaPaciente]="indicaPaciente"
-                [idUsuarioMedico]="idUsuarioMedico"    
-            >
+                [idUsuarioMedico]="idUsuarioMedico">
             </app-anexo>
         </div>
         <div id="swipe-2" class="col s12">
@@ -27,12 +26,7 @@
             </div>
         </div>
         <div id="swipe-3" class="col s12">   
-            <div class="col s12 center">
-                <label class="font-size-22">Código de Acesso Médico</label>
-                <h3 *ngIf="chaveAcessoMedico != null && chaveAcessoMedico != ''" class="text-bolder-700">{{ chaveAcessoMedico }}</h3>
-                <h3 *ngIf="chaveAcessoMedico == null || chaveAcessoMedico == ''" class="text-italic margin-top-4">Código de Acesso não Gerado</h3>
-                <a (click)="gerarChaveMedico()" class="waves-effect waves-light btn margin-top-4">Gerar Código</a>
-            </div>
+            <app-chave-medico [idUsuario]="idUsuario"></app-chave-medico>
         </div>
     </div>
 </div>

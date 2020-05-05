@@ -4,9 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
-import { AnexoComponent } from '../home-tabs/anexo/anexo.component';
-import { ChaveMedicoComponent } from '../home-tabs/chave-medico/chave-medico.component';
+import { ChaveMedicoComponent } from '../chave-medico/chave-medico.component';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @NgModule({
   imports: [
@@ -16,10 +15,10 @@ import { ChaveMedicoComponent } from '../home-tabs/chave-medico/chave-medico.com
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: ChaveMedicoComponent
       }
     ])
   ],
-  declarations: [HomePage, AnexoComponent, ChaveMedicoComponent]
+  declarations: [ChaveMedicoComponent, LoadingComponent]
 })
-export class HomePageModule {}
+export class ChaveMedicoModule {}
