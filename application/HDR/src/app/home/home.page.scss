@@ -1,3 +1,13 @@
+body {
+    overflow-y: scroll;
+}
+
+.cabecalho {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
 .top-9 {
     top: -16%;
 }
@@ -8,6 +18,10 @@
 
 .margin-top-15 {
     margin-top: 15% !important;
+}
+
+.margin-top-28 {
+    margin-top: 28%;
 }
 
 .font-size-16 {
