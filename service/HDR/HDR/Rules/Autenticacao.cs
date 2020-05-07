@@ -21,6 +21,7 @@ namespace HDR.Rules
             this.Contexto = context;
         }
 
+        //Declaração de variável aleatória
         private static Random random = new Random();
         private Contexto Contexto { get; set; }
 
