@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container show-scroll-overflow-y">
   <div class="row margin-top-15">
     <div>
-      <img src="https://www.lsnogueira.com.br/wp-content/uploads/2018/11/ls-nogueira-home-icone-saude.png" class="align-img-center" alt="Mão segurando coração" height="90" width="90" routerLink="/login">
+      <img src="assets/icone-saude.png" class="align-img-center" alt="Mão segurando coração" height="90" width="90" routerLink="/login">
     </div>
     <div class="col s12 text-center">
       <h3 class="text-bolder-700 text-login">Cadastre-se aqui</h3>
     </div>
-    <form class="col s12">
-      <div class="row">
+    <form class="col s12" [hidden]="!indicaUsuarioSelecionado">
+      <div class="row no-margin-bottom" [hidden]="exibirDadosTrabalho">
         <div class="input-field offset-s1 col s10">
           <input type="text" [(ngModel)]="nomeCompleto" name="nomeCompleto" class="validate">
           <label>NOME COMPLETO<span class="text-red"> *</span></label>
@@ -28,24 +28,31 @@
           <input type="date" [(ngModel)]="dataNascimento" name="dataNascimento">
           <label>DATA DE NASCIMENTO<span class="text-red"> *</span></label>
         </div>
-        <div class="row col s12">
-          <div class="col s6">
-            <label>
-              <input type="radio" [(ngModel)]="tipoUsuario" id="paciente" name="tipoUsuario" value="paciente"/>
-              <span>Sou paciente</span>
-            </label>
-          </div>
-          <div class="col s6">
-            <label>
-              <input type="radio" [(ngModel)]="tipoUsuario" id="medico" name="tipoUsuario" value="medico"/>
-              <span>Sou médico</span>
-            </label>
-          </div>
+      </div>
+      <div class="row" [hidden]="(!indicaUsuarioSelecionado && exibirFormularioPaciente) || !exibirDadosTrabalho">
+        <div class="input-field offset-s1 col s10">
+          <input type="text" [(ngModel)]="localTrabalho" name="localTrabalho" class="validate">
+          <label>NOME LOCAL DE TRABALHO<span class="text-red"> *</span></label>
         </div>
-        <div class="row col s12">
-          <div class="col s12">
-            <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Cadastrar</a>
-          </div>
+        <div class="input-field offset-s1 col s10">
+          <input type="text" [(ngModel)]="endereco" name="endereco" class="validate">
+          <label>ENDEREÇO<span class="text-red"> *</span></label>
+        </div>
+        <div class="input-field offset-s1 col s10">
+          <input type="text" [(ngModel)]="especialidade" name="especialidade" class="validate">
+          <label>ESPECIALIDADE<span class="text-red"> *</span></label>
+        </div>
+      </div>
+      <div class="row col s12">
+        <div class="col s12" [hidden]="!indicaUsuarioSelecionado || exibirFormularioPaciente">
+          <a *ngIf="!exibirDadosTrabalho" class="waves-effect waves-light btn width-100" (click)="alternarFormularioTrabalho()">Continuar</a>
+          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 col s6" (click)="alternarFormularioPessoal()">Dados Pessoais</a>
+          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 col s6" (click)="criarUsuario()">Cadastrar</a>
+        </div>
+      </div>
+      <div class="row col s12" [hidden]="(!indicaUsuarioSelecionado && exibirDadosPessoais) || !exibirFormularioPaciente">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Cadastrar</a>
         </div>
       </div>
     </form>

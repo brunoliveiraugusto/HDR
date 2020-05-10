@@ -1,0 +1,27 @@
+<div class="container row margin-top-15">
+  <div>
+    <img src="assets/icone-saude.png" class="align-img-center" alt="Mão segurando coração" height="90" width="90" routerLink="/login">
+  </div>
+  <div class="col s12 text-center">
+    <h3 class="text-bolder-700 text-login">Cadastre-se aqui</h3>
+  </div>
+  <form class="col s12">
+    <div class="row col s12 margin-top-4">
+      <div class="col s6">
+        <label>
+          <input type="radio" [(ngModel)]="tipoUsuario" id="paciente" name="tipoUsuario" value="paciente"/>
+          <span>Sou paciente</span>
+        </label>
+      </div>
+      <div class="col s6">
+        <label>
+          <input type="radio" [(ngModel)]="tipoUsuario" id="medico" name="tipoUsuario" value="medico"/>
+          <span>Sou médico</span>
+        </label>
+      </div>
+      <div class="col s12 margin-top-4">
+        <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Continuar</a>
+      </div>
+    </div>
+  </form>
+</div>

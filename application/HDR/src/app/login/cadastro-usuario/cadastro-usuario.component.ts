@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { isNull, isUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
 import { Usuario } from '../../rules/Usuario';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare let $: any;
 
@@ -20,8 +20,19 @@ export class CadastroUsuarioComponent implements OnInit {
   dataNascimento: Date = null;
   tipoUsuario: string = null;
   usuario: Usuario;
-
-  constructor(private service: HttpService, private router: Router) { }
+  indicaUsuarioSelecionado: boolean = false;
+  exibirFormularioPaciente: boolean = true;
+  exibirDadosPessoais: boolean = false;
+  exibirDadosTrabalho: boolean = false;
+  tipoFormulario: string = null;
+  especialidade: string = null;
+  
+  constructor(private service: HttpService, private router: Router, private getParamsRouter: ActivatedRoute) {
+    this.getParamsRouter.params.subscribe(params => {
+      this.tipoUsuario = params['tipoUsuario'];
+      this.exibirFormularioCadastroUsuario(this.tipoUsuario)
+    });
+  }
 
   ngOnInit() {
     //$(document).ready(function(){
@@ -93,5 +104,27 @@ export class CadastroUsuarioComponent implements OnInit {
     let regex = new RegExp(/([^\d])+/gim);
     let cpfCrmAux = this.cpfCrm.replace(regex, "");
     this.cpfCrm = cpfCrmAux; 
+  }
+
+  public exibirFormularioCadastroUsuario(tipoUsuario: string) {
+    this.indicaUsuarioSelecionado = true;
+
+    if(tipoUsuario == "paciente") {
+      this.exibirFormularioPaciente = true;
+    } else {
+      this.exibirFormularioPaciente = false;
+      this.exibirDadosPessoais = true;
+      this.exibirDadosTrabalho = false;
+    }
+  }
+
+  public alternarFormularioTrabalho() {
+    this.exibirDadosPessoais = false;
+    this.exibirDadosTrabalho = true;
+  }
+
+  public alternarFormularioPessoal() {
+    this.exibirDadosPessoais = true;
+    this.exibirDadosTrabalho = false;
   }
 }
