@@ -35,7 +35,7 @@
           <label>DATA DE NASCIMENTO<span class="text-red"> *</span></label>
         </div>
       </div>
-      <div class="row" [hidden]="(!indicaUsuarioSelecionado && exibirFormularioPaciente) || !exibirDadosTrabalho">
+      <div class="row" [hidden]="(!indicaUsuarioSelecionado && exibirFormularioPaciente) || !exibirDadosTrabalho" (click)="exibirIconeSalvar = true">
         <div class="input-field offset-s1 col s10">
           <input type="text" [(ngModel)]="localTrabalho" name="localTrabalho" class="validate">
           <label>NOME LOCAL DE TRABALHO<span class="text-red"> *</span></label>
@@ -58,7 +58,7 @@
       </div>
       <div class="row col s12" [hidden]="(!indicaUsuarioSelecionado && exibirDadosPessoais) || !exibirFormularioPaciente">
         <div class="col s12">
-          <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Cadastrar</a>
+          <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Finalizar Cadastro</a>
         </div>
       </div>
     </form>

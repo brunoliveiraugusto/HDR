@@ -31,7 +31,7 @@ export class CadastroUsuarioComponent implements OnInit {
   especialidade: string = null;
   dadosMedico: Array<Medico> = new Array<Medico>();
   indexRegistro: number = -1;
-  exibirIconeSalvar: boolean = true;
+  exibirIconeSalvar: boolean = false;
 
   constructor(private service: HttpService, private router: Router, private getParamsRouter: ActivatedRoute) {
     this.getParamsRouter.params.subscribe(params => {
@@ -161,7 +161,7 @@ export class CadastroUsuarioComponent implements OnInit {
       alert("Adicionado com sucesso!");
     }
     this.limparDadosMedico();
-    //this.exibirIconeSalvar = false;
+    this.exibirIconeSalvar = false;
   }
 
   public criarDadosMedico() {
@@ -203,7 +203,7 @@ export class CadastroUsuarioComponent implements OnInit {
     this.endereco = this.dadosMedico[index].Endereco;
     this.especialidade = this.dadosMedico[index].Especialidade;
     this.indexRegistro = index;
-    //this.exibirIconeSalvar = true;
+    this.exibirIconeSalvar = true;
     this.fecharModalEdicao();
   }
 }
