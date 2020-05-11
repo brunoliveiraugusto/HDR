@@ -118,3 +118,14 @@ body {
 .no-margin-bottom {
   margin-bottom: 0px !important;
 }
+
+.no-padding {
+  padding: 0px;
+}
+
+.truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

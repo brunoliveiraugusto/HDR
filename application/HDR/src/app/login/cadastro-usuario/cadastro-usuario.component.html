@@ -1,4 +1,10 @@
 <div class="container show-scroll-overflow-y">
+  <div class="col s12 float-right margin-top-4 margin-left-15">
+    <label *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn margin-top-4 button-editar-excluir" (click)="abrirModalEdicao()">{{dadosMedico.length}}</label><br>
+    <label *ngIf="exibirDadosTrabalho && exibirIconeSalvar" class="waves-effect waves-light btn width-100 margin-top-15 button-editar-excluir no-padding" (click)="validarDadosMedicos()">
+      <img src="assets/icon-save.png" class="style-icon-save" alt="ícone salvar" width="22px" height="22px">
+    </label>
+  </div>
   <div class="row margin-top-15">
     <div>
       <img src="assets/icone-saude.png" class="align-img-center" alt="Mão segurando coração" height="90" width="90" routerLink="/login">
@@ -46,8 +52,8 @@
       <div class="row col s12">
         <div class="col s12" [hidden]="!indicaUsuarioSelecionado || exibirFormularioPaciente">
           <a *ngIf="!exibirDadosTrabalho" class="waves-effect waves-light btn width-100" (click)="alternarFormularioTrabalho()">Continuar</a>
-          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 col s6" (click)="alternarFormularioPessoal()">Dados Pessoais</a>
-          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 col s6" (click)="criarUsuario()">Cadastrar</a>
+          <!--<a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100" (click)="alternarFormularioPessoal()">Editar Dados Pessoais</a>-->
+          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 margin-top-4" (click)="criarUsuario()">Finalizar Cadastro</a>
         </div>
       </div>
       <div class="row col s12" [hidden]="(!indicaUsuarioSelecionado && exibirDadosPessoais) || !exibirFormularioPaciente">
@@ -56,5 +62,50 @@
         </div>
       </div>
     </form>
+    <div id="modalMedico" class="modal">
+      <div class="modal-content">
+          <h4 class="text-color">Cargos</h4>
+          <p>Olá, edite ou exclua os cargos adicionados ao seu perfil</p>
+          <div class="row col s12 text-center font-size-17" *ngFor="let medico of dadosMedico; let i = index">
+            <div class="col s6 row">
+              <div class="col s3 no-padding">
+                <img src="assets/icon-hospital1.png" alt="ícone hospital" width="22px" height="22px">
+              </div>
+              <div class="col s9 truncate">
+                <label class="text-bolder-700">{{medico.NomeLocalTrabalho}}</label>
+              </div>
+            </div>
+            <div class="col s6 row">
+              <div class="col s3 no-padding">
+                <img src="assets/icon-medico.png" alt="ícone médico" width="22px" height="22px">
+              </div>
+              <div class="col s9 truncate">
+                <label class="text-bolder-700">{{medico.Especialidade}}</label>
+              </div>
+            </div>
+            <div class="col s6 row">
+              <div class="col s3 no-padding" (click)="carregarRegistroMedicoSelecionado(i)">
+                <img src="assets/icon-pencil.png" alt="ícone hospital" width="22px" height="22px">
+              </div>
+              <div class="col s9" (click)="carregarRegistroMedicoSelecionado(i)">
+                <label class="text-bolder-700">Editar</label>
+              </div>
+            </div>
+            <div class="col s6 row">
+              <div class="col s3 no-padding">
+                <img src="assets/icon-trash.jpg" alt="ícone hospital" width="22px" height="22px">
+              </div>
+              <div class="col s9">
+                <label class="text-bolder-700">Excluir</label>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!--<div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat color-salmao">Cancelar</a>
+          <a href="#!" (click)="validarArquivoAnexado()" class="modal-close waves-effect waves-green btn-flat text-color">Upload</a>
+      </div>-->
+    </div>
+    
   </div>
 </div>
