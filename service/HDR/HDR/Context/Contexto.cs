@@ -21,6 +21,6 @@ namespace HDR.Context
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<ChaveModel> Chaves { get; set; }
         public DbSet<ArquivoModel> Arquivos { get; set; }
-
+        public DbSet<DadosMedicoModel> Medicos { get; set; }
     }
 }

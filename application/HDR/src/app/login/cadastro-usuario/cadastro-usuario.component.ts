@@ -3,7 +3,7 @@ import { isNull, isUndefined, isNullOrUndefined } from 'util';
 import { HttpService } from 'src/app/services/http.service';
 import { Usuario } from '../../rules/Usuario';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Medico } from 'src/app/rules/Medico';
+import { DadosMedico } from 'src/app/rules/DadosMedico';
 
 declare let $: any;
 
@@ -29,7 +29,7 @@ export class CadastroUsuarioComponent implements OnInit {
   localTrabalho: string = null;
   endereco: string = null;
   especialidade: string = null;
-  dadosMedico: Array<Medico> = new Array<Medico>();
+  dadosMedico: Array<DadosMedico> = new Array<DadosMedico>();
   indexRegistro: number = -1;
   exibirIconeSalvar: boolean = false;
 
@@ -74,37 +74,76 @@ export class CadastroUsuarioComponent implements OnInit {
     this.usuario.Email = this.email;
     this.usuario.DataNascimento = this.dataNascimento;
     this.usuario.IndicaPaciente = (this.tipoUsuario === "paciente");
+    this.usuario.DadosMedico = this.dadosMedico;
 
     return this.usuario;
   }
 
-  public criarUsuario() {
-
+  public indicaCampoVazio() {
+    
     if(isNull(this.nomeCompleto)) {
-      return alert("O campo NOME COMPLETO não foi preenchido.");  
+      alert("O campo NOME COMPLETO não foi preenchido.");  
+      return true;
     }
 
     if(isNull(this.cpfCrm)) {
-      return alert("O campo CPF/CRM não foi preenchido.");  
+      alert("O campo CPF/CRM não foi preenchido.");  
+      return true;
     }
 
     if(isNull(this.chaveAcesso)) {
-      return alert("O campo SENHA não foi preenchido.");  
+      alert("O campo SENHA não foi preenchido.");  
+      return true;
     }
 
     if(isNull(this.email)) {
-      return alert("O campo E-MAIL não foi preenchido.");  
+      alert("O campo E-MAIL não foi preenchido.");  
+      return true;
     }
 
     if(isNull(this.dataNascimento)) {
-      return alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
+      alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
+      return true;
+    }
+  }
+
+  public validarCamposUsuario() {
+
+    if(this.indicaCampoVazio()) {
+      return false;
     }
 
-    if(isNull(this.tipoUsuario)) {
-      return alert("O tipo de usuário não foi preenchido.");  
+    if(this.tipoUsuario == "medico" && this.indicaCamposEspecialidadeMedicaVazio()) {
+      return false;
     }
 
     this.cadastrarNovoUsuario();
+  }
+
+  public indicaCamposEspecialidadeMedicaVazio() {
+    if(this.dadosMedico.length <= 0 && isNull(this.localTrabalho) && isNull(this.endereco) && isNull(this.especialidade)) {
+      alert("Nenhuma especialidade médica foi informada. Por favor, informe no mínimo uma.");
+      return true;
+    }
+
+    if(isNull(this.localTrabalho)) {
+      alert("O campo NOME LOCAL DE TRABALHO não foi preenchido.");
+      return true;
+    }
+
+    if(isNull(this.endereco)){
+      alert("O campo ENDEREÇO não foi preenchido.");
+      return true;
+    }
+
+    if(isNull(this.especialidade)) {
+      alert("O campo ESPECIALIDADE não foi preenchido.");
+      return true;
+    }
+
+    if(this.dadosMedico.length <= 0 && !isNull(this.localTrabalho) && !isNull(this.endereco) && !isNull(this.especialidade)) {
+      this.inserirDadosMedico();
+    }
   }
 
   public removerAcentuacoes() {
@@ -126,8 +165,10 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   public alternarFormularioTrabalho() {
-    this.exibirDadosPessoais = false;
-    this.exibirDadosTrabalho = true;
+    if(!this.indicaCampoVazio()) {
+      this.exibirDadosPessoais = false;
+      this.exibirDadosTrabalho = true;
+    }
   }
 
   public alternarFormularioPessoal() {
@@ -155,17 +196,17 @@ export class CadastroUsuarioComponent implements OnInit {
     if(this.indexRegistro >= 0) {
       this.atualizarRegistroMedico(this.indexRegistro);      
       this.indexRegistro = -1;
-      alert("Atualizado com sucesso!");
+      alert("Especialidade atualizada com sucesso!");
     } else {
       this.dadosMedico.push(this.criarDadosMedico());
-      alert("Adicionado com sucesso!");
+      alert("Especialidade adicionada com sucesso!");
     }
     this.limparDadosMedico();
     this.exibirIconeSalvar = false;
   }
 
   public criarDadosMedico() {
-    let dados = new Medico();
+    let dados = new DadosMedico();
     dados.NomeLocalTrabalho = this.localTrabalho;
     dados.Endereco = this.endereco;
     dados.Especialidade = this.especialidade;

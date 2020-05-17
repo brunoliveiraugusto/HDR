@@ -20,7 +20,8 @@
         </div>
         <div class="input-field offset-s1 col s10">
           <input id="cpf" type="text" [(ngModel)]="cpfCrm" (keypress)="removerAcentuacoes()" name="cpfCrm" class="validate">
-          <label>CPF/CRM<span class="text-red"> *</span></label>
+          <label *ngIf="exibirFormularioPaciente">CPF<span class="text-red"> *</span></label>
+          <label *ngIf="!exibirFormularioPaciente">CRM<span class="text-red"> *</span></label>
         </div>
         <div class="input-field offset-s1 col s10">
           <input type="password" [(ngModel)]="chaveAcesso" name="senha" class="validate">
@@ -53,12 +54,12 @@
         <div class="col s12" [hidden]="!indicaUsuarioSelecionado || exibirFormularioPaciente">
           <a *ngIf="!exibirDadosTrabalho" class="waves-effect waves-light btn width-100" (click)="alternarFormularioTrabalho()">Continuar</a>
           <!--<a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100" (click)="alternarFormularioPessoal()">Editar Dados Pessoais</a>-->
-          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 margin-top-4" (click)="criarUsuario()">Finalizar Cadastro</a>
+          <a *ngIf="exibirDadosTrabalho" class="waves-effect waves-light btn width-100 margin-top-4" (click)="validarCamposUsuario()">Finalizar Cadastro</a>
         </div>
       </div>
       <div class="row col s12" [hidden]="(!indicaUsuarioSelecionado && exibirDadosPessoais) || !exibirFormularioPaciente">
         <div class="col s12">
-          <a class="waves-effect waves-light btn width-100" (click)="criarUsuario()">Finalizar Cadastro</a>
+          <a class="waves-effect waves-light btn width-100" (click)="validarCamposUsuario()">Finalizar Cadastro</a>
         </div>
       </div>
     </form>

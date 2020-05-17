@@ -1,3 +1,5 @@
+import { DadosMedico } from './DadosMedico';
+
 export class Usuario {
     NomeCompleto: string;
     CpfCrm: string;
@@ -5,4 +7,5 @@ export class Usuario {
     Email: string;
     DataNascimento: Date;
     IndicaPaciente: boolean;
+    DadosMedico: Array<DadosMedico>;
 }

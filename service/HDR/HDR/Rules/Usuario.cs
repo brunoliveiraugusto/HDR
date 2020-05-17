@@ -26,6 +26,7 @@ namespace HDR.Rules
         public string Email { get; set; }
         public DateTime DataNascimento { get; set; }
         public bool IndicaPaciente { get; set; }
+        public List<DadosMedico> DadosMedico { get; set; }
         #endregion
         
         #region Métodos internos
@@ -50,7 +51,30 @@ namespace HDR.Rules
             this.Contexto.Add(novoUsuario);
             this.Contexto.SaveChanges();
 
+            if(!usuario.IndicaPaciente)
+            {
+                this.CriarMedico(usuario.DadosMedico, novoUsuario.IdUsuario);
+            }
+
             return true;
+        }
+
+        public void CriarMedico(List<DadosMedico> dadosMedico, int idUsuarioMedico)
+        {
+            foreach(var dadoMedico in dadosMedico)
+            {
+                var medico = new DadosMedicoModel()
+                {
+                    NomeLocalTrabalho = dadoMedico.NomeLocalTrabalho,
+                    Endereco = dadoMedico.Endereco,
+                    Especialidade = dadoMedico.Especialidade,
+                    IdUsuario = idUsuarioMedico,
+                    DataCadastro = DateTime.Now
+                };
+
+                this.Contexto.Add(medico);
+                this.Contexto.SaveChanges();
+            }
         }
 
         public void ValidarCamposObrigatoriosUsuario(Usuario usuario)
@@ -83,6 +107,37 @@ namespace HDR.Rules
             if (usuario.IndicaPaciente.IsNull())
             {
                 throw new Exception("O tipo de usuário não foi preenchido.");
+            }
+
+            if(!usuario.IndicaPaciente)
+            {
+                this.ValidarEspecialidadesMedica(usuario.DadosMedico) ;
+            }
+        }
+
+        public void ValidarEspecialidadesMedica(List<DadosMedico> especialidades)
+        {
+            if(especialidades.Count() <= 0)
+            {
+                throw new Exception("Nenhuma especialidade médica foi informada. Por favor, informe no mínimo uma.");
+            }
+
+            foreach(var especialidade in especialidades)
+            {
+                if(especialidade.NomeLocalTrabalho.IsNullOrEmpty())
+                {
+                    throw new Exception("O campo NOME LOCAL DE TRABALHO não foi preenchido.");
+                }
+
+                if (especialidade.Endereco.IsNullOrEmpty())
+                {
+                    throw new Exception("O campo ENDEREÇO não foi preenchido.");
+                }
+
+                if (especialidade.Especialidade.IsNullOrEmpty())
+                {
+                    throw new Exception("O campo ESPECIALIDADE não foi preenchido.");
+                }
             }
         }
 
