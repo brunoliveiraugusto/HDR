@@ -1,0 +1,21 @@
+nav {
+    background-color: #26a69a;
+}
+
+.tabs .tab a {
+    color: #26a69a;
+}
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#26a69a;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+    background-color:#26a6992c;
+    color:#26a69a;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#26a69a !important;
+} /*Color of underline*/
