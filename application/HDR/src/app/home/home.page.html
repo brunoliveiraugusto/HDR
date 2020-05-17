@@ -15,7 +15,7 @@
         </ul>
     </div>
     <div class="container col s12 margin-top-28">
-        <div id="swipe-1" class="col s12">
+        <div id="swipe-1" class="col s12" *ngIf="idUsuario > 0 && indicaPaciente">
             <app-anexo
                 [idUsuario]="idUsuario"
                 [indicaPaciente]="indicaPaciente"

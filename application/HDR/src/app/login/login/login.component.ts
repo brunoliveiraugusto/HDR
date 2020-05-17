@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   public validarChaveDigitada() {
-    if(isNull(this.chaveAcessoMedico)) {
+    if(isNull(this.chaveAcessoMedico) || this.chaveAcessoMedico == "") {
       return alert("A chave de acesso não foi informada.");
     } else {
       this.exibeLoading = true;

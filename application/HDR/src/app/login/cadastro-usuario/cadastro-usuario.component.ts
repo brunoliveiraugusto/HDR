@@ -88,7 +88,11 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && (isNull(this.cpfCrm) || this.cpfCrm == "")) || isNull(this.cpfCrm) || this.cpfCrm == "") {
-      alert("O campo CPF/CRM não foi preenchido.");  
+      if(this.tipoUsuario == "medico"){
+        alert("O campo CRM não foi preenchido.");
+      } else {
+        alert("O campo CPF não foi preenchido.");
+      }
       return true;
     }
 
