@@ -52,13 +52,14 @@ export class CadastroUsuarioComponent implements OnInit {
     this.service.cadastrarUsuario(usuario)
     .subscribe((result) => {
       alert("O usuário foi criado com sucesso, seja bem vindo!");
-        
       this.nomeCompleto = null;
       this.cpfCrm = null;
       this.chaveAcesso = null;
       this.email = null;
       this.dataNascimento = null;
       this.tipoUsuario = null;
+      this.router.navigate(['/login']);
+      this.dadosMedico = new Array<DadosMedico>();
     },
     (error) => {
       alert("Houve um problema na criação do usuário.")
@@ -81,27 +82,27 @@ export class CadastroUsuarioComponent implements OnInit {
 
   public indicaCampoVazio() {
     
-    if(isNull(this.nomeCompleto)) {
+    if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && (isNull(this.nomeCompleto) || this.nomeCompleto == "")) || isNull(this.nomeCompleto) || this.nomeCompleto == "") {
       alert("O campo NOME COMPLETO não foi preenchido.");  
       return true;
     }
 
-    if(isNull(this.cpfCrm)) {
+    if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && (isNull(this.cpfCrm) || this.cpfCrm == "")) || isNull(this.cpfCrm) || this.cpfCrm == "") {
       alert("O campo CPF/CRM não foi preenchido.");  
       return true;
     }
 
-    if(isNull(this.chaveAcesso)) {
+    if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && (isNull(this.chaveAcesso) || this.chaveAcesso == "")) || isNull(this.chaveAcesso) || this.chaveAcesso == "") {
       alert("O campo SENHA não foi preenchido.");  
       return true;
     }
 
-    if(isNull(this.email)) {
+    if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && (isNull(this.email) || this.email == "")) || isNull(this.email) || this.email == "") {
       alert("O campo E-MAIL não foi preenchido.");  
       return true;
     }
 
-    if(isNull(this.dataNascimento)) {
+    if((this.tipoUsuario == "medico" && this.dadosMedico.length <= 0 && isNull(this.dataNascimento)) || isNull(this.dataNascimento)) {
       alert("O campo DATA DE NASCIMENTO não foi preenchido.");  
       return true;
     }
@@ -121,7 +122,7 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   public indicaCamposEspecialidadeMedicaVazio() {
-    if(this.dadosMedico.length <= 0 && isNull(this.localTrabalho) && isNull(this.endereco) && isNull(this.especialidade)) {
+    if(this.dadosMedico.length <= 0 && (isNull(this.localTrabalho) || this.localTrabalho == "") && (isNull(this.endereco) || this.endereco == "") && (isNull(this.especialidade) || this.especialidade == "")) {
       alert("Nenhuma especialidade médica foi informada. Por favor, informe no mínimo uma.");
       return true;
     }
@@ -141,7 +142,7 @@ export class CadastroUsuarioComponent implements OnInit {
       return true;
     }
 
-    if(this.dadosMedico.length <= 0 && !isNull(this.localTrabalho) && !isNull(this.endereco) && !isNull(this.especialidade)) {
+    if(!isNull(this.localTrabalho) && !isNull(this.endereco) && !isNull(this.especialidade)) {
       this.inserirDadosMedico();
     }
   }

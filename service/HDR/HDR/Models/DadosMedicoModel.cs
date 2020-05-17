@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HDR.Models
 {
-    [Table("MEDICO")]
+    [Table("DADOS_MEDICO")]
     public class DadosMedicoModel
     {
         [Key, Column("ID_DADOS_MEDICO")]
