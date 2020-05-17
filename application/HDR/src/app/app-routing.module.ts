@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'selecao-usuario', loadChildren: () => import('./login/selecao-usuario/selecao-usuario.module').then( m => m.SelecaoUsuarioComponentModule)},
   { path: 'cadastro-usuario', loadChildren: () => import('./login/cadastro-usuario/cadastro-usuario.module').then( m => m.LoginComponentModule)},
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: 'home-medico', loadChildren: () => import('./home-medico/home-medico.module').then( m => m.HomeMedicoModule)},
 ];
 
 @NgModule({
