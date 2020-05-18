@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private service: HttpService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public validarLogin() {
     if(isNull(this.username)) {
@@ -55,6 +55,11 @@ export class LoginComponent implements OnInit {
       .subscribe((idUsuario) => {
         this.exibeLoading = false;
         this.router.navigate(['/home-medico', {'idUsuario': idUsuario, 'indicaPaciente': this.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
+        this.exibirCampoChave = false;
+        this.chaveAcessoMedico = null;
+        this.username = null;
+        this.password = null;
+        this.tipoUsuario = null;
       }, (error) => {
         this.exibeLoading = false;
         alert("A chave digitada é inválida.");

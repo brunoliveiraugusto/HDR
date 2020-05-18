@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare let $: any;
 
@@ -14,7 +14,7 @@ export class HomeMedicoComponent implements OnInit {
   @Output() indicaPaciente: boolean;
   @Output() idUsuarioMedico: number;
   
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute, private router: Router) { 
     this.route.params.subscribe(params => {
       this.idUsuario = Number.parseInt(params['idUsuario']);
       this.indicaPaciente = params['indicaPaciente'] == "true";
@@ -28,4 +28,7 @@ export class HomeMedicoComponent implements OnInit {
     });
   }
 
+  public sair() {
+    this.router.navigate(['/login']);
+  }
 }

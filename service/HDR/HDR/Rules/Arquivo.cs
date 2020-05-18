@@ -1,6 +1,7 @@
 ﻿using HDR.Context;
 using HDR.Generics;
 using HDR.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -76,7 +77,27 @@ namespace HDR.Rules
 
         public List<ArquivoModel> CarregarSolicitacoes(int idUsuarioMedico)
         {
-            return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false).ToList();
+            return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false)
+                .Include(usuario => usuario.Usuario).ToList();
+        }
+
+        public bool AprovarSolicitacaoDocumento(int idArquivo)
+        {
+            var arquivo = this.Contexto.Arquivos.FirstOrDefault(arq => arq.IdArquivo == idArquivo);
+
+            if (!arquivo.IsNull())
+            {
+                arquivo.IndicaAprovacaoMedica = true;
+
+                this.Contexto.Entry(arquivo).State = EntityState.Modified;
+                this.Contexto.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                throw new Exception("Houve uma falha ao aprovar a solicitação");
+            }
         }
     }
 }

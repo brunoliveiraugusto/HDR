@@ -2,8 +2,12 @@
   <div class="col s2">
       <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
   </div>
-  <div class="col s8 text-center" style="padding-top: 3%;">
+  <div class="col s6 truncate" style="padding-top: 3%;">
       <span class="style-text-name-file">{{arquivo.nomeArquivo}}</span>
+  </div>
+  <div class="col s2">
+    <img class="size-icon-download float-right" *ngIf="arquivo.indicaAprovacaoMedica" src="assets/icon-verify.png" alt="ícone verificado">
+    <img class="size-icon-download float-right" *ngIf="!arquivo.indicaAprovacaoMedica" src="assets/icon-alert.png" alt="ícone alerta">
   </div>
   <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
       <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">

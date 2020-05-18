@@ -42,5 +42,14 @@ namespace HDR.Controllers
             }
         }
 
+        [Route("Arquivo/AprovarSolicitacaoDocumento")]
+        [HttpPost]
+        public bool AprovarSolicitacaoDocumento(int idArquivo)
+        {
+            using (var contexto = new Contexto())
+            {
+                return new Arquivo(contexto).AprovarSolicitacaoDocumento(idArquivo);
+            }
+        }
     }
 }

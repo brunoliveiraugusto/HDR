@@ -14,13 +14,13 @@ export class SolicitacoesComponent implements OnInit {
   @Input() indicaPaciente: boolean;
   @Input() idUsuarioMedico: number;
   
-  constructor(private service: HttpService) { 
+  constructor(private service: HttpService) { }
+
+  ngOnInit() {
     if(this.idUsuarioMedico > 0 && !this.indicaPaciente) {
       this.carregarSolicitacoes();
     }
   }
-
-  ngOnInit() {}
 
   public carregarSolicitacoes() {
     this.service.carregarSolicitacoes(this.idUsuarioMedico)
@@ -29,5 +29,29 @@ export class SolicitacoesComponent implements OnInit {
     }, (error) => {
       console.log("Erro ao carregar as solicitações.");
     })
+  }
+
+  public downloadArquivo(nomeArq: string, arqBase: string) {
+    const linkSource = arqBase; 
+    const downloadLink = document.createElement("a");
+    const fileName = nomeArq;
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
+  public aprovarSolicitacao(idArquivo: number) {
+    if(!isNaN(idArquivo) && idArquivo > 0) {
+      this.service.aprovarSolicitacaoDocumento(idArquivo)
+      .subscribe((result) => {
+        alert("Solicitação aprovada.");
+        this.carregarSolicitacoes();
+      }, (error) => {
+        alert("Houve uma falha ao aprovar a solicitação.");
+      });
+    } else {
+      alert("Houve uma falha ao aprovar a solicitação.");
+    }
   }
 }

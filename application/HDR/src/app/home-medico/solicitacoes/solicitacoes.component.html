@@ -1,14 +1,24 @@
-<div class="col s12 row border-anexo" *ngFor="let solicitacao of solicitacoes">
-  <div class="col s2">
-      <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
+<div class="col s12 border-anexo" *ngFor="let solicitacao of solicitacoes">
+  <div class="col s12 row no-margin no-padding">
+    <div class="col s2">
+        <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
+    </div>
+    <div class="col s6 truncate" style="padding-top: 3%;">
+        <span class="style-text-name-file">{{solicitacao.nomeArquivo}}</span>
+    </div>
+    <div class="col s2">
+      <img class="size-icon-download float-right" src="assets/icon-verify.png" (click)="aprovarSolicitacao(solicitacao.idArquivo)" alt="Ícone de verificação">
+    </div>
+    <div class="col s2" (click)="downloadArquivo(solicitacao.nomeArquivo, solicitacao.arquivo)">
+        <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
+    </div>
   </div>
-  <div class="col s6 text-center" style="padding-top: 3%;">
-      <span class="style-text-name-file">{{solicitacao.nomeArquivo}}</span>
-  </div>
-  <div class="col s2">
-    <img class="size-icon-download float-right" src="assets/icon-verify.png" alt="Ícone de verificação">
-  </div>
-  <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
-      <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
+  <div class="col s12 row no-margin no-padding">
+    <div class="col s2">
+      <img class="size-icon-download" src="assets/icon-paciente4.png" alt="ícone paciente">
+    </div>
+    <div class="col s10 truncate">
+      <span class="style-text-name-file">{{solicitacao.usuario.nomeUsuario}},<br> {{solicitacao.usuario.login}}</span>
+    </div>
   </div>
 </div>

@@ -57,6 +57,8 @@ export class AnexoComponent implements OnInit {
         this.novoNomeArquivo = null;
         this.arquivoExibido = null;
         this.exibirFormMedico = false;
+        this.crmDigitado = null;
+        this.medico = new Medico();
       }
     }, (error) => {
       alert("Houve um erro ao salvar o arquivo.");

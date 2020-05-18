@@ -70,4 +70,9 @@ export class HttpService {
     return this.httpService.get<Array<any>>(route, {responseType: 'json'});
   }
 
+  public aprovarSolicitacaoDocumento = (idArquivo: number) : Observable<boolean> => {
+    let route: string = 'http://localhost:5000/Arquivo/AprovarSolicitacaoDocumento?idArquivo='+idArquivo;
+    return this.httpService.post<boolean>(route, {responseType: 'json'});
+  } 
+
 }
