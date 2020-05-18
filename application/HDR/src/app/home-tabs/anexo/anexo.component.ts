@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Arquivo } from 'src/app/rules/Arquivo';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, isNull } from 'util';
 import { HttpService } from 'src/app/services/http.service';
+import { Medico } from 'src/app/rules/Medico';
 
 declare let $: any;
 
@@ -17,6 +18,9 @@ export class AnexoComponent implements OnInit {
   arquivos: Array<string> = new Array<string>();
   nomeArquivo: string = null;
   arquivoExibido: string = null;
+  exibirFormMedico: boolean = false;
+  crmDigitado: string = null;
+  medico: Medico = new Medico();
   @Input() idUsuario: number;
   @Input() indicaPaciente: boolean;
   @Input() idUsuarioMedico: number;
@@ -81,6 +85,7 @@ export class AnexoComponent implements OnInit {
     arquivo.DataExclusao = null;
     arquivo.IdUsuario = this.idUsuario;
     arquivo.NomeArquivo = this.nomeArquivo;
+    arquivo.IdUsuarioMedico = this.medico.IdUsuario;
 
     return arquivo;
   }
@@ -128,5 +133,25 @@ export class AnexoComponent implements OnInit {
 
   public fecharModal() {
     $('#modalArquivo').modal('hide');
+  }
+
+  public exibirFormularioMedico() {
+    this.exibirFormMedico = true;
+  }
+
+  public buscarMedicoPorCrm() {
+    if(isNull(this.crmDigitado) || this.crmDigitado == "") {
+      return;
+    } else {
+      this.service.buscarMedico(this.crmDigitado)
+      .subscribe((result) => {
+        this.medico = result;
+      }, (error) => {
+      })
+    }
+  }
+
+  public buscarMedico() {
+
   }
 }

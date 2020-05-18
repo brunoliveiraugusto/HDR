@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Arquivo } from '../rules/Arquivo';
 import { DadosUsuario } from '../rules/DadosUsuario';
+import { Medico } from '../rules/Medico';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,11 @@ export class HttpService {
   public carregarArquivosAnexados = (idUsuario: number) : Observable<Array<any>> => {
     let route: string = 'http://localhost:5000/Arquivo/CarregarArquivosPorUsuario?idUsuario='+idUsuario;
     return this.httpService.get<Array<any>>(route, {responseType: 'json'});
+  }
+
+  public buscarMedico = (crm: string) : Observable<Medico> => {
+    let route: string = 'http://localhost:5000/Usuario/CarregarMedicoPorCrm?crm='+crm;
+    return this.httpService.get<Medico>(route, {responseType: 'json'});
   }
 
 }

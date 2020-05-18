@@ -26,6 +26,7 @@ namespace HDR.Rules
         public string NomeArquivo { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime? DataExclusao { get; set; }
+        public int? IdUsuarioMedico { get; set; }
 
         public void SalvarArquivo(Arquivo arquivo)
         {

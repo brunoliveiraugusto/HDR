@@ -1,6 +1,7 @@
 ﻿using HDR.Context;
 using HDR.Generics;
 using HDR.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,21 @@ using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
+    public struct Medico
+    {
+        public int IdMedico { get; set; }
+        public string NomeCompleto { get; set; }
+        public string Crm { get; set; }
+        public List<InformacoesTrabalho> InformacoesTrabalhoMedico { get; set; }
+    }
+
+    public struct InformacoesTrabalho
+    {
+        public string NomeLocalTrabalho { get; set; }
+        public string Endereco { get; set; }
+        public string Especialidade { get; set; }
+    }
+
     public class Usuario
     {
         #region Propriedades e Construtor
@@ -144,6 +160,42 @@ namespace HDR.Rules
         public bool IndicaUsuarioExistente(Usuario usuario)
         {
             return this.Contexto.Usuarios.Any(user => user.Login == usuario.CpfCrm);
+        }
+
+        public Medico BuscarMedico(string crm)
+        {
+            var usuarioMedico = this.Contexto.Usuarios.Where(medico => medico.IndicaPaciente == false && medico.Login == crm).FirstOrDefault();
+
+            if(usuarioMedico.IsNull())
+            {
+                return new Medico();
+            }
+            else
+            {
+                var dadosMedico = this.Contexto.DadosMedico.Where(dados => dados.IdUsuario == usuarioMedico.IdUsuario).ToList();
+
+                var informacoesTrabalho = new List<InformacoesTrabalho>();
+                var informacaoTrabalho = new InformacoesTrabalho();
+
+                foreach (var dadoMedico in dadosMedico)
+                {
+                    informacaoTrabalho.NomeLocalTrabalho = dadoMedico.NomeLocalTrabalho;
+                    informacaoTrabalho.Endereco = dadoMedico.Endereco;
+                    informacaoTrabalho.Especialidade = dadoMedico.Especialidade;
+
+                    informacoesTrabalho.Add(informacaoTrabalho);
+                }
+
+                var med = new Medico()
+                {
+                    IdMedico = usuarioMedico.IdUsuario,
+                    NomeCompleto = usuarioMedico.NomeUsuario,
+                    Crm = usuarioMedico.Login,
+                    InformacoesTrabalhoMedico = informacoesTrabalho
+                };
+
+                return med;
+            }
         }
         #endregion
     }

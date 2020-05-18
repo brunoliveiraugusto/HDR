@@ -11,7 +11,7 @@ namespace HDR.Models
     public class DadosMedicoModel
     {
         [Key, Column("ID_DADOS_MEDICO")]
-        public int IdMedico { get; set; }
+        public int IdDadosMedico { get; set; }
 
         [Column("NOME_LOCAL_TRABALHO")]
         public string NomeLocalTrabalho { get; set; }

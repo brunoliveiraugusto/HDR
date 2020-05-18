@@ -12,7 +12,7 @@
 
 <!-- Modal Structure -->
 <div id="modalArquivo" class="modal">
-  <div class="modal-content">
+  <div class="modal-content" *ngIf="!exibirFormMedico">
       <h4 class="text-color">Upload Arquivo</h4>
       <p>Olá, você selecionou o arquivo <span class="text-italic">{{nomeArquivo}}</span>, caso queira ajustar o nome do arquivo
           insira um novo nome no campo abaixo, caso contrário basta clicar em Upload ou Cancelar.
@@ -20,9 +20,50 @@
       <input id="arquivoNome" [(ngModel)]="novoNomeArquivo" name="novoNomeArquivo" type="text" class="validate">
       <label for="arquivoNome">Dê ao seu arquivo um novo nome</label>
   </div>
+  <div class="modal-content" *ngIf="exibirFormMedico">
+    <h4 class="text-color">Selecione o Médico</h4>
+    <p>Para que possamos garantir que o documento selecionado foi emitido realmente por um médico,
+        insira no campo abaixo o CRM do mesmo. 
+        Ao clicar em upload, o documento selecionado já estará visível em seu repositório e será enviada uma 
+        solicitação para o médico selecionado. Caso o mesmo confirme a emissão 
+        desse documento ele poderá ser usado futuramente como parte do seu prontuário com a garantia 
+        de que é válido, caso contrário, clique apenas em Upload.
+    </p>
+    <input id="inputMedico" [(ngModel)]="crmDigitado" name="crmDigitado" type="text" class="validate" (ngModelChange)="buscarMedicoPorCrm()">
+    <label for="inputMedico">Insira o CRM</label>
+    <div class="col s12" [ngClass]="{'margin-top-5': medico.nomeCompleto}">
+        <div class="col s12 row">
+            <div class="col s2" *ngIf="medico.nomeCompleto">
+                <img src="assets/icon-remedio.jpg" alt="ícone médico" width="30px" height="30px">
+            </div>
+            <div class="col s10">
+                <label class="font-size-14">{{medico.nomeCompleto}}, {{medico.crm}}</label>
+            </div>
+        </div>
+        <div *ngFor="let info of medico.informacoesTrabalhoMedico">
+            <div class="col s12 row">
+                <div class="col s2">
+                    <img src="assets/icon-hospital1.png" alt="ícone endereço" width="22px" height="22px">
+                </div>
+                <div class="col s10">
+                    <label class="font-size-14">{{info.nomeLocalTrabalho}}, {{info.endereco}}</label>
+                </div>
+            </div>
+            <div class="col s12 row">
+                <div class="col s2">
+                    <img src="assets/icon-medico.png" alt="ícone especialidade" width="22px" height="22px">
+                </div>
+                <div class="col s10">
+                    <label class="font-size-14">{{info.especialidade}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
   <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat color-salmao">Cancelar</a>
-      <a href="#!" (click)="validarArquivoAnexado()" class="modal-close waves-effect waves-green btn-flat text-color">Upload</a>
+      <a href="#!" (click)="exibirFormularioMedico()" class="waves-effect waves-green btn-flat text-color" *ngIf="!exibirFormMedico">Próximo</a>
+      <a href="#!" (click)="validarArquivoAnexado()" class="modal-close waves-effect waves-green btn-flat text-color" *ngIf="exibirFormMedico">Upload</a>
   </div>
 </div>
 <div class="col s12 margin-top-25">

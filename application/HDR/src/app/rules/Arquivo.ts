@@ -5,4 +5,5 @@ export class Arquivo {
     NomeArquivo: string;
     DataCriacao: Date;
     DataExclusao: Date;
+    IdUsuarioMedico: number;
 }

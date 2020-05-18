@@ -22,6 +22,9 @@ namespace HDR.Models
         [Column("DATA_EXCLUSAO")]
         public DateTime? DataExclusao { get; set; }
 
+        [Column("ID_USUARIO_MEDICO")]
+        public int? IdUsuarioMedico { get; set; }
+
         [Column("ID_USUARIO"), ForeignKey("Usuario")]
         public int IdUsuario { get; set; }
 

@@ -19,5 +19,15 @@ namespace HDR.Controllers
                 return new Usuario(contexto).CriarUsuario(usuario);
             }
         }
+
+        [Route("Usuario/CarregarMedicoPorCrm")]
+        [HttpGet]
+        public Medico CarregarMedicoPorCrm(string crm)
+        {
+            using (var contexto = new Contexto())
+            {
+                return new Usuario(contexto).BuscarMedico(crm);
+            }
+        }
     }
 }
