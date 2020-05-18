@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     this.service.validarChaveAcessoMedico(chave)
       .subscribe((idUsuario) => {
         this.exibeLoading = false;
-        this.router.navigate(['/home', {'idUsuario': idUsuario, 'indicaPaciente': this.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
+        this.router.navigate(['/home-medico', {'idUsuario': idUsuario, 'indicaPaciente': this.indicaPaciente, 'idUsuarioMedico': this.idUsuarioMedico}]);
       }, (error) => {
         this.exibeLoading = false;
         alert("A chave digitada é inválida.");

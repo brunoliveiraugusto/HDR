@@ -54,6 +54,9 @@ export class AnexoComponent implements OnInit {
       alert("O arquivo foi salvo com sucesso.");
       if(result) {
         this.carregarArquivos();
+        this.novoNomeArquivo = null;
+        this.arquivoExibido = null;
+        this.exibirFormMedico = false;
       }
     }, (error) => {
       alert("Houve um erro ao salvar o arquivo.");
@@ -85,7 +88,7 @@ export class AnexoComponent implements OnInit {
     arquivo.DataExclusao = null;
     arquivo.IdUsuario = this.idUsuario;
     arquivo.NomeArquivo = this.nomeArquivo;
-    arquivo.IdUsuarioMedico = this.medico.IdUsuario;
+    arquivo.IdUsuarioMedico = this.medico.idMedico;
 
     return arquivo;
   }
@@ -149,9 +152,5 @@ export class AnexoComponent implements OnInit {
       }, (error) => {
       })
     }
-  }
-
-  public buscarMedico() {
-
   }
 }

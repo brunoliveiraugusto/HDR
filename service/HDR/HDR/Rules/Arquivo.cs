@@ -60,7 +60,9 @@ namespace HDR.Rules
                 DataCriacao = arq.DataCriacao,
                 DataExclusao = null,
                 IdUsuario = arq.IdUsuario,
-                NomeArquivo = arq.NomeArquivo
+                NomeArquivo = arq.NomeArquivo,
+                IdUsuarioMedico = arq.IdUsuarioMedico,
+                IndicaAprovacaoMedica = false
             };
 
             this.Contexto.Add(arquivo);
