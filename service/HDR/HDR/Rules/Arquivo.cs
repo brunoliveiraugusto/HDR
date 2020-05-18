@@ -73,5 +73,10 @@ namespace HDR.Rules
         {
             return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
         }
+
+        public List<ArquivoModel> CarregarSolicitacoes(int idUsuarioMedico)
+        {
+            return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false).ToList();
+        }
     }
 }

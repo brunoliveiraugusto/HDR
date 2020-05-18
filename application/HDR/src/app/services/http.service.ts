@@ -65,4 +65,9 @@ export class HttpService {
     return this.httpService.get<Medico>(route, {responseType: 'json'});
   }
 
+  public carregarSolicitacoes = (idUsuarioMedico: number) : Observable<Array<any>> => {
+    let route: string = 'http://localhost:5000/Arquivo/CarregarSolicitacoesArquivo?idUsuarioMedico='+idUsuarioMedico;
+    return this.httpService.get<Array<any>>(route, {responseType: 'json'});
+  }
+
 }

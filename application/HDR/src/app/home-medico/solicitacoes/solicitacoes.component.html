@@ -1,0 +1,14 @@
+<div class="col s12 row border-anexo" *ngFor="let solicitacao of solicitacoes">
+  <div class="col s2">
+      <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
+  </div>
+  <div class="col s6 text-center" style="padding-top: 3%;">
+      <span class="style-text-name-file">{{solicitacao.nomeArquivo}}</span>
+  </div>
+  <div class="col s2">
+    <img class="size-icon-download float-right" src="assets/icon-verify.png" alt="Ícone de verificação">
+  </div>
+  <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
+      <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
+  </div>
+</div>

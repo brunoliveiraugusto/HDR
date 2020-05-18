@@ -32,5 +32,15 @@ namespace HDR.Controllers
             } 
         }
 
+        [Route("Arquivo/CarregarSolicitacoesArquivo")]
+        [HttpGet]
+        public List<ArquivoModel> CarregarSolicitacoesArquivo(int idUsuarioMedico)
+        {
+            using (var contexto = new Contexto())
+            {
+                return new Arquivo(contexto).CarregarSolicitacoes(idUsuarioMedico);
+            }
+        }
+
     }
 }
