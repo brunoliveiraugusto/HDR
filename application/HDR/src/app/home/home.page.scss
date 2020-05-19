@@ -65,3 +65,7 @@ body {
     color: #9e9e9e;
     font-family: monospace, serif;  
 }
+
+::ng-deep .tabs .indicator {
+    background-color:#E57373 !important;
+} /*Color of underline*/
