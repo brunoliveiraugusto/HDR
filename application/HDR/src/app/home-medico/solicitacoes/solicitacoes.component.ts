@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { Arquivo } from 'src/app/rules/Arquivo';
 
+declare let $: any;
+
 @Component({
   selector: 'app-solicitacoes',
   templateUrl: './solicitacoes.component.html',
@@ -20,6 +22,16 @@ export class SolicitacoesComponent implements OnInit {
     if(this.idUsuarioMedico > 0 && !this.indicaPaciente) {
       this.carregarSolicitacoes();
     }
+  }
+
+  ngAfterViewInit() {
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+  }
+
+  public abrir() {
+    $('.collapsible').collapsible();
   }
 
   public carregarSolicitacoes() {

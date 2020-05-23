@@ -35,6 +35,16 @@ export class AnexoComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+  }
+
+  public abrir() {
+    $('.collapsible').collapsible();
+  }
+
   public validarArquivoAnexado() {
     if(isNullOrUndefined(this.arquivoExibido))
       return alert("Nenhum arquivo pdf foi selecionado.");    

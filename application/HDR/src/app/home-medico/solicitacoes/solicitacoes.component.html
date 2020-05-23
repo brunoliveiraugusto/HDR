@@ -1,4 +1,4 @@
-<div class="col s12 border-anexo" *ngFor="let solicitacao of solicitacoes">
+<!--<div class="col s12 border-anexo" *ngFor="let solicitacao of solicitacoes">
   <div class="col s12 row no-margin no-padding">
     <div class="col s2">
         <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
@@ -21,4 +21,39 @@
       <span class="style-text-name-file">{{solicitacao.usuario.nomeUsuario}},<br> {{solicitacao.usuario.login}}</span>
     </div>
   </div>
+</div>
+-->
+
+<div class="col s12" *ngFor="let solicitacao of solicitacoes; let i = index" (click)="abrir(i)">
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header col s12">
+        <div class="col s2 margin-right-3">
+          <img class="size-icon-download" src="assets/icon-paciente4.png" alt="ícone paciente">
+        </div>
+        <div class="col s10 truncate">
+          <div class="no-margin no-padding col s12">
+            <span class="style-text-name-file">{{solicitacao.usuario.nomeUsuario}}</span>
+          </div>
+          <div class="no-margin no-padding col s12">
+            <span class="style-text-name-file">{{solicitacao.usuario.login}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-body col s12">
+        <div class="col s2">
+          <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
+        </div>
+        <div class="col s6 truncate padding-top-3">
+            <span class="style-text-name-file">{{solicitacao.nomeArquivo}}</span>
+        </div>
+        <div class="col s2">
+          <img class="size-icon-download float-right" src="assets/icon-verify.png" (click)="aprovarSolicitacao(solicitacao.idArquivo)" alt="Ícone de verificação">
+        </div>
+        <div class="col s2" (click)="downloadArquivo(solicitacao.nomeArquivo, solicitacao.arquivo)">
+            <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
+        </div>  
+      </div>
+    </li>
+  </ul>
 </div>

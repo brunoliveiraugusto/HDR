@@ -24,11 +24,11 @@ namespace HDR.Controllers
 
         [Route("Arquivo/CarregarArquivosPorUsuario")]
         [HttpGet]
-        public List<ArquivoModel>CarregarArquivosPorUsuario(int idUsuario)
+        public List<AnexoArquivo>CarregarArquivosPorUsuario(int idUsuario)
         {
             using (var contexto = new Contexto())
             {
-                return new Arquivo(contexto).CarregarArquivos(idUsuario);
+                return new Arquivo(contexto).CarregarArquivosSalvo(idUsuario);
             } 
         }
 

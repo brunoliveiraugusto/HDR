@@ -10,6 +10,18 @@ using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
+    public struct AnexoArquivo
+    {
+        public string NomeArquivo { get; set; }
+        public string Arquivo { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public string NomeMedico { get; set; }
+        public bool IndicaAprovacaoMedica { get; set; }
+        public int? IdUsuarioMedico { get; set; }
+        public string Crm { get; set; }
+        public DadosMedico InformacoesMedico { get; set; }
+    }
+
     public class Arquivo
     {
         public Arquivo() { }
@@ -70,10 +82,54 @@ namespace HDR.Rules
             this.Contexto.SaveChanges();
         }
 
+        public List<AnexoArquivo> BuscarArquivosEMedico(List<ArquivoModel> arquivos)
+        {
+            var arquivosAnexados = new List<AnexoArquivo>();
+
+            foreach(var arquivo in arquivos)
+            {
+                if(arquivo.IndicaAprovacaoMedica && !arquivo.IdUsuarioMedico.IsNull())
+                {
+                    var medico = this.Contexto.Usuarios.FirstOrDefault(usuarioMedico => usuarioMedico.IdUsuario == arquivo.IdUsuarioMedico);
+
+                    arquivosAnexados.Add(new AnexoArquivo()
+                    {
+                        Arquivo = arquivo.Arquivo,
+                        DataCriacao = arquivo.DataCriacao,
+                        IndicaAprovacaoMedica = arquivo.IndicaAprovacaoMedica,
+                        NomeArquivo = arquivo.NomeArquivo,
+                        NomeMedico = medico.NomeUsuario,
+                        IdUsuarioMedico = arquivo.IdUsuarioMedico,
+                        Crm = medico.Login
+                    });
+                }
+                else
+                {
+                    arquivosAnexados.Add(new AnexoArquivo()
+                    {
+                        Arquivo = arquivo.Arquivo,
+                        DataCriacao = arquivo.DataCriacao,
+                        IndicaAprovacaoMedica = arquivo.IndicaAprovacaoMedica,
+                        NomeArquivo = arquivo.NomeArquivo,
+                        IdUsuarioMedico = null
+                    });
+                }
+            }
+
+            return arquivosAnexados;
+        }
+
         public List<ArquivoModel> CarregarArquivos(int idUsuario)
         {
             return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
         }
+
+        public List<AnexoArquivo> CarregarArquivosSalvo(int idUsuario)
+        {
+            var arquivos = this.CarregarArquivos(idUsuario);
+
+            return this.BuscarArquivosEMedico(arquivos);
+        } 
 
         public List<ArquivoModel> CarregarSolicitacoes(int idUsuarioMedico)
         {
