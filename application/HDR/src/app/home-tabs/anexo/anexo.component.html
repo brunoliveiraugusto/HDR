@@ -5,30 +5,32 @@
                 <div class="col s2 margin-right-3">
                     <img class="size-icon-download" src="assets/generic-icon.png" alt="ícone pdf">
                 </div>
-                <div class="col s8 truncate padding-top-3">
+                <div class="col s6 truncate padding-top-3">
                     <span class="style-text-name-file">{{arquivo.nomeArquivo}}</span>
                 </div>
                 <div class="col s2">
                     <img class="size-icon-download float-right" *ngIf="arquivo.indicaAprovacaoMedica" src="assets/icon-verify.png" alt="ícone verificado">
                     <img class="size-icon-download float-right" *ngIf="!arquivo.indicaAprovacaoMedica" src="assets/icon-alert.png" alt="ícone alerta">
                 </div>
-            </div>
-            <div class="collapsible-body col s12 row">
-                <div class="col s2" *ngIf="arquivo.indicaAprovacaoMedica">
-                    <img class="size-icon-download float-right" src="assets/icon-medico.png" alt="ícone médico">
-                </div>
-                <div class="col s8">
-                    <span class="style-text-name-file" *ngIf="!arquivo.indicaAprovacaoMedica && arquivo.idUsuarioMedico == null">Não foi enviada solicitação a um médico</span>
-                    <span class="style-text-name-file" *ngIf="!arquivo.indicaAprovacaoMedica && arquivo.idUsuarioMedico > 0">Solicitação ainda não aprovada</span>
-                    <span class="style-text-name-file display-block" *ngIf="arquivo.indicaAprovacaoMedica && arquivo.idUsuarioMedico > 0">{{arquivo.nomeMedico}}</span>
-                    <span class="style-text-name-file" *ngIf="arquivo.indicaAprovacaoMedica && arquivo.idUsuarioMedico > 0">{{arquivo.crm}}</span>
-                </div>
                 <div class="col s2" (click)="downloadArquivo(arquivo.nomeArquivo, arquivo.arquivo)">
                     <img class="size-icon-download float-right" src="assets/download.png" alt="ícone de download">
                 </div>
             </div>
+            <div class="collapsible-body col s12 row">
+                <div class="col s2" *ngIf="arquivo.indicaAprovacaoMedica">
+                    <img class="icon-dados-medico" src="assets/icon-medico.png" alt="ícone médico">
+                </div>
+                <div class="col s10 padding-top-2 truncate">
+                    <span class="style-text-name-file" *ngIf="!arquivo.indicaAprovacaoMedica">Sem aprovação médica</span>
+                    <span class="style-text-name-file" *ngIf="arquivo.indicaAprovacaoMedica && arquivo.idUsuarioMedico > 0">{{arquivo.nomeMedico}}, {{arquivo.crm}}</span>
+                </div>
+            </div>
         </li>
     </ul>    
+</div>
+
+<div class="col s12 center-horizontal-vertical" *ngIf="exibeLoading">
+    <app-loading></app-loading>
 </div>
 
 <!-- Modal Structure -->

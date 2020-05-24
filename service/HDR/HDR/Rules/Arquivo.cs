@@ -19,7 +19,7 @@ namespace HDR.Rules
         public bool IndicaAprovacaoMedica { get; set; }
         public int? IdUsuarioMedico { get; set; }
         public string Crm { get; set; }
-        public DadosMedico InformacoesMedico { get; set; }
+        public List<DadosMedicoModel> InformacoesMedico { get; set; }
     }
 
     public class Arquivo
@@ -90,7 +90,8 @@ namespace HDR.Rules
             {
                 if(arquivo.IndicaAprovacaoMedica && !arquivo.IdUsuarioMedico.IsNull())
                 {
-                    var medico = this.Contexto.Usuarios.FirstOrDefault(usuarioMedico => usuarioMedico.IdUsuario == arquivo.IdUsuarioMedico);
+                    var medico = this.Contexto.DadosMedico.Where(usuarioMedico => usuarioMedico.IdUsuario == arquivo.IdUsuarioMedico)
+                            .Include(usuario => usuario.Usuario).ToList();
 
                     arquivosAnexados.Add(new AnexoArquivo()
                     {
@@ -98,9 +99,10 @@ namespace HDR.Rules
                         DataCriacao = arquivo.DataCriacao,
                         IndicaAprovacaoMedica = arquivo.IndicaAprovacaoMedica,
                         NomeArquivo = arquivo.NomeArquivo,
-                        NomeMedico = medico.NomeUsuario,
+                        NomeMedico = medico.FirstOrDefault().Usuario.NomeUsuario,
                         IdUsuarioMedico = arquivo.IdUsuarioMedico,
-                        Crm = medico.Login
+                        Crm = medico.FirstOrDefault().Usuario.Login,
+                        InformacoesMedico = medico  
                     });
                 }
                 else

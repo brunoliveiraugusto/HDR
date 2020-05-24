@@ -12,6 +12,7 @@ declare let $: any;
 export class SolicitacoesComponent implements OnInit {
 
   solicitacoes: Array<Arquivo> = new Array<Arquivo>();
+  exibeLoading: boolean = false;
   @Input() idUsuario: number;
   @Input() indicaPaciente: boolean;
   @Input() idUsuarioMedico: number;
@@ -20,6 +21,7 @@ export class SolicitacoesComponent implements OnInit {
 
   ngOnInit() {
     if(this.idUsuarioMedico > 0 && !this.indicaPaciente) {
+      this.exibeLoading = true;
       this.carregarSolicitacoes();
     }
   }
@@ -37,6 +39,7 @@ export class SolicitacoesComponent implements OnInit {
   public carregarSolicitacoes() {
     this.service.carregarSolicitacoes(this.idUsuarioMedico)
     .subscribe((result) => {
+      this.exibeLoading = false;
       this.solicitacoes = result;
     }, (error) => {
       console.log("Erro ao carregar as solicitações.");

@@ -21,6 +21,7 @@ export class AnexoComponent implements OnInit {
   exibirFormMedico: boolean = false;
   crmDigitado: string = null;
   medico: Medico = new Medico();
+  exibeLoading: boolean = false;
   @Input() idUsuario: number;
   @Input() indicaPaciente: boolean;
   @Input() idUsuarioMedico: number;
@@ -31,6 +32,7 @@ export class AnexoComponent implements OnInit {
     $('.modal').modal();
 
     if(this.idUsuario > 0 && this.indicaPaciente) {
+      this.exibeLoading = true;
       this.carregarArquivos();
     }
   }
@@ -49,6 +51,7 @@ export class AnexoComponent implements OnInit {
     if(isNullOrUndefined(this.arquivoExibido))
       return alert("Nenhum arquivo pdf foi selecionado.");    
     
+    this.exibeLoading = true;
     this.salvarArquivoAnexado();
   }
 
@@ -69,6 +72,7 @@ export class AnexoComponent implements OnInit {
         this.exibirFormMedico = false;
         this.crmDigitado = null;
         this.medico = new Medico();
+        this.exibeLoading = false;
       }
     }, (error) => {
       alert("Houve um erro ao salvar o arquivo.");
@@ -108,6 +112,7 @@ export class AnexoComponent implements OnInit {
   public carregarArquivos() {
     this.service.carregarArquivosAnexados(this.idUsuario)
     .subscribe((result) => {
+      this.exibeLoading = false;
       this.listaArquivos = result;
     }, (error) => {
       console.log("Erro ao carregar os arquivos salvo.")
