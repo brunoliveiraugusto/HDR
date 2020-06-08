@@ -6,4 +6,5 @@ export class Arquivo {
     DataCriacao: Date;
     DataExclusao: Date;
     IdUsuarioMedico: number;
+    IndicaCadastroMedico: boolean;
 }

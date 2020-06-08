@@ -40,6 +40,7 @@ namespace HDR.Rules
         public DateTime DataCriacao { get; set; }
         public DateTime? DataExclusao { get; set; }
         public int? IdUsuarioMedico { get; set; }
+        public bool IndicaCadastroMedico { get; set; }
 
         public void SalvarArquivo(Arquivo arquivo)
         {
@@ -75,7 +76,7 @@ namespace HDR.Rules
                 IdUsuario = arq.IdUsuario,
                 NomeArquivo = arq.NomeArquivo,
                 IdUsuarioMedico = arq.IdUsuarioMedico,
-                IndicaAprovacaoMedica = false
+                IndicaAprovacaoMedica = arq.IndicaCadastroMedico
             };
 
             this.Contexto.Add(arquivo);

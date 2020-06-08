@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   exibirCampoChave: boolean = false;
   chaveAcessoMedico: string;
   idUsuarioMedico: number = 0;
+  utilizaChaveParaAcesso: boolean = false;
 
   exibeLoading: boolean = false;
 
@@ -84,5 +85,16 @@ export class LoginComponent implements OnInit {
       this.exibeLoading = false;
       alert("Usuário ou senha incorreto.");
     }); 
+  }
+
+  public loginSemChaveDeAcesso() {
+    if(!this.utilizaChaveParaAcesso) {
+      this.router.navigate(['/home-medico', {'idUsuario': 0, 'indicaPaciente': false, 'idUsuarioMedico': this.idUsuarioMedico}]);
+      this.exibirCampoChave = false;
+      this.chaveAcessoMedico = null;
+      this.username = null;
+      this.password = null;
+      this.tipoUsuario = null;
+    }
   }
 }

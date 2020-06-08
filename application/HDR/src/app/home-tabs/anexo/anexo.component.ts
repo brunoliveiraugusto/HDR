@@ -49,7 +49,7 @@ export class AnexoComponent implements OnInit {
 
   public validarArquivoAnexado() {
     if(isNullOrUndefined(this.arquivoExibido))
-      return alert("Nenhum arquivo pdf foi selecionado.");    
+      return alert("Nenhum documento foi selecionado.");    
     
     this.exibeLoading = true;
     this.salvarArquivoAnexado();
@@ -64,7 +64,7 @@ export class AnexoComponent implements OnInit {
 
     this.service.salvarArquivoAnexado(objArquivo)
     .subscribe((result) => {
-      alert("O arquivo foi salvo com sucesso.");
+      alert("O documento foi salvo com sucesso.");
       if(result) {
         this.carregarArquivos();
         this.novoNomeArquivo = null;
@@ -75,7 +75,7 @@ export class AnexoComponent implements OnInit {
         this.exibeLoading = false;
       }
     }, (error) => {
-      alert("Houve um erro ao salvar o arquivo.");
+      alert("Houve um erro ao salvar o documento.");
     });
   }
 
@@ -105,6 +105,7 @@ export class AnexoComponent implements OnInit {
     arquivo.IdUsuario = this.idUsuario;
     arquivo.NomeArquivo = this.nomeArquivo;
     arquivo.IdUsuarioMedico = this.medico.idMedico;
+    arquivo.IndicaCadastroMedico = false;
 
     return arquivo;
   }
@@ -115,7 +116,7 @@ export class AnexoComponent implements OnInit {
       this.exibeLoading = false;
       this.listaArquivos = result;
     }, (error) => {
-      console.log("Erro ao carregar os arquivos salvo.")
+      console.log("Erro ao carregar os documentos salvo.")
     });
   }
 
