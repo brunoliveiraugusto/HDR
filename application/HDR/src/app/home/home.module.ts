@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { AnexoComponent } from '../home-tabs/anexo/anexo.component';
 import { ChaveMedicoComponent } from '../home-tabs/chave-medico/chave-medico.component';
 import { ComponentsModule } from '../components.module';
+import { AgendaConsultaComponent } from '../home-tabs/agenda-consulta/agenda-consulta.component'
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { ComponentsModule } from '../components.module';
       }
     ])
   ],
-  declarations: [HomePage, AnexoComponent, ChaveMedicoComponent]
+  declarations: [HomePage, AnexoComponent, ChaveMedicoComponent, AgendaConsultaComponent]
 })
 export class HomePageModule {}
