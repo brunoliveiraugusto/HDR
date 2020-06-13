@@ -9,25 +9,25 @@
             </div>
         </nav>
         <ul id="tabs-swipe-demo" class="tabs">
-            <li class="tab col s3"><a class="active" href="#swipe-1">Anexos</a></li>
-            <li class="tab col s3"><a href="#swipe-2">Consultas</a></li>
-            <li class="tab col s3"><a href="#swipe-3">Médico</a></li>
+            <li class="tab col s3" (click)="exibirAbaAnexos()"><a class="active" href="#swipe-1">Anexos</a></li>
+            <li class="tab col s3" (click)="exibirAbaConsultas()"><a href="#swipe-2">Consultas</a></li>
+            <li class="tab col s3" (click)="exibirAbaMedico()"><a href="#swipe-3">Médico</a></li>
         </ul>
     </div>
     <div class="container col s12 margin-top-28">
-        <div id="swipe-1" class="col s12">
+        <div id="swipe-1" class="col s12" *ngIf="exibeAbaAnexos">
             <app-anexo
                 [idUsuario]="idUsuario"
                 [indicaPaciente]="indicaPaciente"
                 [idUsuarioMedico]="idUsuarioMedico">
             </app-anexo>
         </div>
-        <div id="swipe-2" class="col s12">
+        <div id="swipe-2" class="col s12" *ngIf="exibeAbaConsultas">
             <div class="col s12">
                 <app-agenda-consulta></app-agenda-consulta>
             </div>
         </div>
-        <div id="swipe-3" class="col s12">   
+        <div id="swipe-3" class="col s12" *ngIf="exibeAbaMedico">   
             <app-chave-medico [idUsuario]="idUsuario"></app-chave-medico>
         </div>
     </div>

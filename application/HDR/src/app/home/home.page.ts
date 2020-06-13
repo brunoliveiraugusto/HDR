@@ -10,6 +10,9 @@ declare let $: any;
 })
 export class HomePage implements OnInit{
 
+  exibeAbaAnexos: boolean = true;
+  exibeAbaConsultas: boolean = false;
+  exibeAbaMedico: boolean = false;
   @Output() idUsuario: number;
   @Output() indicaPaciente: boolean;
   @Output() idUsuarioMedico: number;
@@ -26,5 +29,23 @@ export class HomePage implements OnInit{
     $(document).ready(function(){
       $('.tabs').tabs();
     });
+  }
+
+  public exibirAbaAnexos() {
+    this.exibeAbaAnexos = true;
+    this.exibeAbaConsultas = false;
+    this.exibeAbaMedico = false;
+  }
+
+  public exibirAbaConsultas() {
+    this.exibeAbaAnexos = false;
+    this.exibeAbaConsultas = true;
+    this.exibeAbaMedico = false;
+  }
+
+  public exibirAbaMedico() {
+    this.exibeAbaAnexos = false;
+    this.exibeAbaConsultas = false;
+    this.exibeAbaMedico = true;
   }
 }

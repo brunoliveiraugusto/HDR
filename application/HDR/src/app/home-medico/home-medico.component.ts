@@ -19,6 +19,8 @@ export class HomeMedicoComponent implements OnInit {
   arquivoExibido: string = null;
   exibeLoading: boolean = false;
   chaveAcessoMedico: string = null;
+  exibeAbaSolicitacoes: boolean = true;
+  exibeAbaNovoAnexo: boolean = false;
   @Output() idUsuario: number = 0;
   @Output() indicaPaciente: boolean;
   @Output() idUsuarioMedico: number;
@@ -134,5 +136,15 @@ export class HomeMedicoComponent implements OnInit {
       this.exibeLoading = false;
       alert("A chave digitada é inválida.");
     })
+  }
+
+  public exibirAbaSolicitacoes() {
+    this.exibeAbaSolicitacoes = true;
+    this.exibeAbaNovoAnexo = false;
+  }
+
+  public exibirAbaNovoAnexo() {
+    this.exibeAbaSolicitacoes = false;
+    this.exibeAbaNovoAnexo = true;
   }
 }
