@@ -54,7 +54,7 @@
           <div class="col s12" *ngIf="!exibeLoading">
             <a class="waves-effect waves-light btn width-100" (click)="validarChaveDigitada()">Validar</a>
           </div>
-          <div class="col s12 margin-top-4">
+          <div class="col s12 margin-top-4" *ngIf="!exibeLoading">
             <p class="font-size-14 text-center margin-0 color-salmao" (click)="loginSemChaveDeAcesso()">Continuar sem Chave de Acesso</p>
           </div>
           <div class="offset-s5 col s12" *ngIf="exibeLoading">
