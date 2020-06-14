@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Arquivo } from 'src/app/rules/Arquivo';
+import { Arquivo } from '../../rules/Arquivo';
 import { isNullOrUndefined, isNull } from 'util';
-import { HttpService } from 'src/app/services/http.service';
-import { Medico } from 'src/app/rules/Medico';
+import { HttpService } from '../../services/http.service';
+import { Medico } from '../../rules/Medico';
 
 declare let $: any;
 

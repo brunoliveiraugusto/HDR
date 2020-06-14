@@ -1,4 +1,4 @@
-<div class="col s12">
+<div class="col s12" (click)="abrir()">
   <ul class="collapsible">
       <li>
         <div class="collapsible-header col s12 row no-margin-right-left margin-top-3">
@@ -28,4 +28,29 @@
         </div>
       </li>
   </ul>    
+</div>
+<!-- Modal Structure -->
+<div id="modalAgenda" class="modal">
+  <div class="modal-content" *ngIf="!exibirFormMedico">
+      <h4 class="text-color text-center">Agenda de Consulta</h4>
+      <input id="crm" [(ngModel)]="crmMedico" name="crmMedico" type="text" class="validate">
+      <label for="crm">CRM</label>
+      <input id="infMedico" [(ngModel)]="medico" name="medico" type="text" class="validate">
+      <label for="infMedico">Nome Médico<span class="text-red"> *</span></label>
+      <input id="nomeClinica" [(ngModel)]="nomeClinicaMedica" name="nomeClinicaMedica" type="text" class="validate">
+      <label for="nomeClinica">Nome Clínica<span class="text-red"> *</span></label>
+      <input id="dataConsulta" [(ngModel)]="dataConsultaMedica" name="dataConsultaMedica" type="date" class="validate">
+      <label for="dataConsulta">Data da Consulta<span class="text-red"> *</span></label>
+      <input id="endereco" [(ngModel)]="enderecoClinica" name="enderecoClinica" type="text" class="validate">
+      <label for="endereco">Endereço</label>      
+  </div>
+  <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat color-salmao">Cancelar</a>
+      <a href="#!" (click)="cadastrarAgenda()" class="waves-effect waves-green btn-flat text-color">Agendar</a>
+  </div>
+</div>
+<div class="col s12 margin-top-25">
+  <button class="align-btn-new" type="button" (click)="abrirModalAgenda()">
+      <span class="font-size-button">+</span>
+  </button>
 </div>

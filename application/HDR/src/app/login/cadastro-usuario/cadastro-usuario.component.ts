@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { isNull, isUndefined, isNullOrUndefined } from 'util';
-import { HttpService } from 'src/app/services/http.service';
+import { HttpService } from '../../services/http.service';
 import { Usuario } from '../../rules/Usuario';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DadosMedico } from 'src/app/rules/DadosMedico';
+import { DadosMedico } from '../../rules/DadosMedico';
 
 declare let $: any;
 
