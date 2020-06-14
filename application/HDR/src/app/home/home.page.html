@@ -24,7 +24,7 @@
         </div>
         <div id="swipe-2" class="col s12" *ngIf="exibeAbaConsultas">
             <div class="col s12">
-                <app-agenda-consulta></app-agenda-consulta>
+                <app-agenda-consulta [idUsuario]="idUsuario"></app-agenda-consulta>
             </div>
         </div>
         <div id="swipe-3" class="col s12" *ngIf="exibeAbaMedico">   

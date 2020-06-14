@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Arquivo } from '../rules/Arquivo';
 import { DadosUsuario } from '../rules/DadosUsuario';
 import { Medico } from '../rules/Medico';
+import { Consulta } from '../rules/Consulta';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,19 @@ export class HttpService {
     var json = JSON.stringify(arq);
     return this.httpService.post<boolean>(route, json, httpOptions);
   }
+
+  public salvarConsulta = (consulta: Consulta): Observable<boolean> => {
+    let route: string = 'http://localhost:5000/Consulta/SalvarConsulta';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json; charset=utf-8',
+      })
+    };
+
+    var json = JSON.stringify(consulta);
+    return this.httpService.post<boolean>(route, json, httpOptions);
+  }
   
   public carregarArquivosAnexados = (idUsuario: number) : Observable<Array<any>> => {
     let route: string = 'http://localhost:5000/Arquivo/CarregarArquivosPorUsuario?idUsuario='+idUsuario;
@@ -75,4 +89,8 @@ export class HttpService {
     return this.httpService.post<boolean>(route, {responseType: 'json'});
   } 
 
+  public carregarConsultas = (idUsuario: number) : Observable<Array<any>> => {
+    let route: string = 'http://localhost:5000/Consulta/CarregarConsultas?idUsuario='+idUsuario;
+    return this.httpService.get<Array<any>>(route, {responseType: 'json'});
+  }
 }

@@ -72,11 +72,11 @@ export class AnexoComponent implements OnInit {
         this.exibirFormMedico = false;
         this.crmDigitado = null;
         this.medico = new Medico();
-        this.exibeLoading = false;
       }
     }, (error) => {
       alert("Houve um erro ao salvar o documento.");
     });
+    this.exibeLoading = false;
   }
 
   

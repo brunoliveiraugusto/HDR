@@ -1,4 +1,4 @@
-<div class="col s12" (click)="abrir()">
+<div class="col s12" *ngFor="let consulta of consultas; let i = index" (click)="abrir(i)">
   <ul class="collapsible">
       <li>
         <div class="collapsible-header col s12 row no-margin-right-left margin-top-3">
@@ -6,10 +6,10 @@
               <img src="assets/icon-hospital1.png" alt="ícone hospital" width="26px" height="26px">
             </div>
             <div class="col s6 truncate">
-                <span class="style-text-name-file">Hospital Getúlio Vargas</span>
+                <span class="style-text-name-file">{{consulta.nomeHospital}}</span>
             </div>
             <div class="col s4">
-              <span class="style-text-name-file">26/08/2020</span>
+              <span class="style-text-name-file">{{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</span>
             </div>
         </div>
         <div class="collapsible-body col s12 row">
@@ -17,17 +17,20 @@
               <img class="icon-dados-medico" src="assets/icon-medico.png" alt="ícone médico" width="26px" height="26px">
             </div>
             <div class="col s10 padding-top-2">
-              <span class="style-text-name-file">Rita de Cássia, 1414141414</span>
+              <span class="style-text-name-file">{{consulta.nomeMedico}}, {{consulta.crm}}</span>
             </div>
             <div class="col s2">
 
             </div>
             <div class="col s10">
-              <span class="style-text-name-file">Avenida Antônio Carlos, 826, Lagoinha</span>
+              <span class="style-text-name-file">{{consulta.endereco}}</span>
             </div>
         </div>
       </li>
   </ul>    
+</div>
+<div class="col s12 center-horizontal-vertical" *ngIf="exibeLoading">
+  <app-loading></app-loading>
 </div>
 <!-- Modal Structure -->
 <div id="modalAgenda" class="modal">
@@ -35,18 +38,18 @@
       <h4 class="text-color text-center">Agenda de Consulta</h4>
       <input id="crm" [(ngModel)]="crmMedico" name="crmMedico" type="text" class="validate">
       <label for="crm">CRM</label>
-      <input id="infMedico" [(ngModel)]="medico" name="medico" type="text" class="validate">
-      <label for="infMedico">Nome Médico<span class="text-red"> *</span></label>
+      <input id="medico" [(ngModel)]="nomeMedico" name="nomeMedico" type="text" class="validate">
+      <label for="medico">NOME MÉDICO<span class="text-red"> *</span></label>
       <input id="nomeClinica" [(ngModel)]="nomeClinicaMedica" name="nomeClinicaMedica" type="text" class="validate">
-      <label for="nomeClinica">Nome Clínica<span class="text-red"> *</span></label>
+      <label for="nomeClinica">NOME CLÍNICA<span class="text-red"> *</span></label>
       <input id="dataConsulta" [(ngModel)]="dataConsultaMedica" name="dataConsultaMedica" type="date" class="validate">
-      <label for="dataConsulta">Data da Consulta<span class="text-red"> *</span></label>
+      <label for="dataConsulta">DATA DA CONSULTA<span class="text-red"> *</span></label>
       <input id="endereco" [(ngModel)]="enderecoClinica" name="enderecoClinica" type="text" class="validate">
-      <label for="endereco">Endereço</label>      
+      <label for="endereco">ENDEREÇO</label>      
   </div>
   <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat color-salmao">Cancelar</a>
-      <a href="#!" (click)="cadastrarAgenda()" class="waves-effect waves-green btn-flat text-color">Agendar</a>
+      <a href="#!" (click)="validarDadosConsultaMedica()" class="waves-effect waves-green btn-flat text-color">Agendar</a>
   </div>
 </div>
 <div class="col s12 margin-top-25">
