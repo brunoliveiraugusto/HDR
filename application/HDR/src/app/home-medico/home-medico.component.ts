@@ -34,11 +34,11 @@ export class HomeMedicoComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('.modal').modal();
-
     $(document).ready(function(){
       $('.tabs').tabs();
     });
+    
+    $('.modal').modal();
   }
 
   public sair() {

@@ -37,7 +37,7 @@ export class AgendaConsultaComponent implements OnInit {
   }
 
   public fecharModal() {
-    $('#modalAgenda').modal('hide');
+    $('#modalAgenda').click();
   }
 
   public abrir() {
@@ -67,13 +67,11 @@ export class AgendaConsultaComponent implements OnInit {
     this.service.salvarConsulta(consulta)
     .subscribe(resp => {
       alert("Consulta cadastrada com sucesso.");
-      this.fecharModal();
       this.limparDadosConsulta();
       this.carregarConsultas(this.idUsuario);
     }, (error) => {
       alert("Falha ao tentar cadastrar uma nova consulta.");
     });
-
     this.exibeLoading = false;
   }
 
@@ -102,6 +100,7 @@ export class AgendaConsultaComponent implements OnInit {
     this.service.carregarConsultas(idUsuario)
     .subscribe(resp => {
       this.consultas = resp;
+      this.fecharModal();
     }, (error) => {
       console.log("Houve um erro ao carregar as consultas.");
     });

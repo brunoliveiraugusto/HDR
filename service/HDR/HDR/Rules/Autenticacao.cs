@@ -35,7 +35,8 @@ namespace HDR.Rules
             if(usuario.IsNull() || (!usuario.IsNull() && usuario.IdUsuario <= 0))
             {
                 throw new Exception("Usuário ou senha inválido.");
-            } else
+            }
+            else
             {
                 return new DadosUsuario()
                 {

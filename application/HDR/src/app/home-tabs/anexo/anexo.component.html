@@ -37,8 +37,8 @@
 <div id="modalArquivo" class="modal">
   <div class="modal-content" *ngIf="!exibirFormMedico">
       <h4 class="text-color">Upload Arquivo</h4>
-      <p>Olá, você selecionou o arquivo <span class="text-italic">{{nomeArquivo}}</span>, caso queira ajustar o nome do arquivo
-          insira um novo nome no campo abaixo, caso contrário basta clicar em Upload ou Cancelar.
+      <p>Olá, você selecionou o arquivo <span class="text-italic">{{nomeArquivo}}</span>, caso queira ajustar o nome do arquivo,
+          insira um novo nome no campo abaixo e clique em Próximo ou Cancelar.
       </p>
       <input id="arquivoNome" [(ngModel)]="novoNomeArquivo" name="novoNomeArquivo" type="text" class="validate">
       <label for="arquivoNome">Dê ao seu arquivo um novo nome</label>
