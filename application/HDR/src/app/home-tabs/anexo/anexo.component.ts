@@ -25,7 +25,6 @@ export class AnexoComponent implements OnInit {
   @Input() idUsuario: number;
   @Input() indicaPaciente: boolean;
   @Input() idUsuarioMedico: number;
-  teste: string = null;
 
   constructor(private service: HttpService) { }
 
