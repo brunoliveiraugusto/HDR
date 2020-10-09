@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HDR.Context;
+using HDR.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +12,8 @@ namespace HDR.Models
     [Table("USUARIO")]
     public class UsuarioModel
     {
+        private readonly IContextRepository _context;
+
         [Key, Column("ID_USUARIO")]
         public int IdUsuario { get; set; }
 
@@ -27,5 +31,18 @@ namespace HDR.Models
 
         [Column("INDICA_PACIENTE")]
         public bool IndicaPaciente { get; set; }
+
+        public UsuarioModel() : this(new Contexto()) { }
+
+        public UsuarioModel(IContextRepository context)
+        {
+            _context = context;
+        }
+
+        public UsuarioModel IndicaUsuarioValido(string login, string password, bool indicaPaciente)
+        {
+            return _context.Usuarios.Where(usuario => usuario.Login == login && usuario.ChaveAcesso == password && usuario.IndicaPaciente == indicaPaciente)
+                .FirstOrDefault();
+        }
     }
 }

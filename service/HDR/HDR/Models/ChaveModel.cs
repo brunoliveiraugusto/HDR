@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HDR.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
+using HDR.Context;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace HDR.Models
 {
     [Table("CHAVE")]
-    public class ChaveModel
+    public class ChaveModel : IModel
     {
+        private readonly IContextRepository _context;
+
         [Key, Column("ID_CHAVE")]
         public int IdChave { get; set; }
 
@@ -29,5 +33,37 @@ namespace HDR.Models
         public bool IndicaChaveAtiva { get; set; }
 
         public virtual UsuarioModel Usuario { get; set; }
+
+        public ChaveModel() : this(new Contexto()) { }
+
+        public ChaveModel(IContextRepository context)
+        {
+            _context = context;
+        }
+
+        public List<ChaveModel> CarregarChaveAtivaPorUsuario(int idUsuario)
+        {
+            return _context.Chaves.Where(chaveAcesso => chaveAcesso.IdUsuario == idUsuario && chaveAcesso.IndicaChaveAtiva).ToList();
+        }
+
+        public bool IndicaChaveExistente(string chaveGerada)
+        {
+            return _context.Chaves.Any(chave => chave.ChaveAcesso == chaveGerada);
+        }
+
+        public void Salvar(IModel chave)
+        {
+            _context.Save(chave, EntityState.Added);
+        }
+
+        public ChaveModel CarregarChaveAtivaPorChaveDeAcesso(string chave)
+        {
+            return _context.Chaves.Where(key => key.IndicaChaveAtiva && key.ChaveAcesso == chave).FirstOrDefault();
+        }
+
+        public void InativarChave(ChaveModel chave)
+        {
+            _context.Update(chave, EntityState.Modified);
+        }
     }
 }

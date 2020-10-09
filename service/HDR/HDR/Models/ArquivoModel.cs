@@ -1,5 +1,6 @@
 ﻿using HDR.Context;
 using HDR.Interfaces;
+using HDR.Rules;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,6 @@ namespace HDR.Models
     public class ArquivoModel
     {
         private readonly IContextRepository _context;
-
-        public ArquivoModel() : this(new Contexto()) { }
-
-        public ArquivoModel(IContextRepository context)
-        {
-            _context = context;
-        }
 
         [Key, Column("ID_ARQUIVO")]
         public int IdArquivo { get; set; }
@@ -47,6 +41,13 @@ namespace HDR.Models
 
         public virtual UsuarioModel Usuario { get; set; }
 
+        public ArquivoModel() : this(new Contexto()) { }
+
+        public ArquivoModel(IContextRepository context)
+        {
+            _context = context;
+        }
+
         public List<ArquivoModel> CarregarArquivosComSolicitacoesNaoAprovadas(int idUsuarioMedico)
         {
             return this._context.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false)
@@ -56,6 +57,27 @@ namespace HDR.Models
         public ArquivoModel CarregarArquivoEspecifico(int idArquivo)
         {
             return this._context.Arquivos.FirstOrDefault(arq => arq.IdArquivo == idArquivo);
+        }
+
+        public List<ArquivoModel> CarregarArquivos(int idUsuario)
+        {
+            return this._context.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
+        }
+
+        public void Salvar(Arquivo arq)
+        {
+            var arquivo = new ArquivoModel()
+            {
+                Arquivo = arq.ArquivoAnexado,
+                DataCriacao = arq.DataCriacao,
+                DataExclusao = null,
+                IdUsuario = arq.IdUsuario,
+                NomeArquivo = arq.NomeArquivo,
+                IdUsuarioMedico = arq.IdUsuarioMedico,
+                IndicaAprovacaoMedica = arq.IndicaCadastroMedico
+            };
+
+            this._context.Save(arquivo, EntityState.Added);
         }
     }
 }

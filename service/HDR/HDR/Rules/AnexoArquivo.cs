@@ -12,8 +12,6 @@ namespace HDR.Rules
 {
     public class AnexoArquivo
     {
-        private readonly IContextRepository _context;
-
         public string NomeArquivo { get; set; }
         public string Arquivo { get; set; }
         public DateTime DataCriacao { get; set; }
@@ -23,11 +21,6 @@ namespace HDR.Rules
         public string Crm { get; set; }
         public List<DadosMedicoModel> InformacoesMedico { get; set; }
 
-        public AnexoArquivo() : this(new Contexto()) { }
-
-        public AnexoArquivo(IContextRepository context)
-        {
-            _context = context;
-        }
+        public AnexoArquivo() { }
     }
 }

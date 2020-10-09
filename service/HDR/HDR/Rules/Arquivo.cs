@@ -34,7 +34,7 @@ namespace HDR.Rules
         public void SalvarArquivo(Arquivo arquivo)
         {
             this.ValidarArquivo(arquivo);
-            this.Salvar(arquivo);
+            new ArquivoModel(_context).Salvar(arquivo);
         }
 
         public void ValidarArquivo(Arquivo arq)
@@ -53,27 +53,6 @@ namespace HDR.Rules
             {
                 throw new Exception("O campo NOME ARQUIVO não foi preenchido.");
             }
-        }
-
-        public void Salvar(Arquivo arq)
-        {
-            var arquivo = new ArquivoModel()
-            {
-                Arquivo = arq.ArquivoAnexado,
-                DataCriacao = arq.DataCriacao,
-                DataExclusao = null,
-                IdUsuario = arq.IdUsuario,
-                NomeArquivo = arq.NomeArquivo,
-                IdUsuarioMedico = arq.IdUsuarioMedico,
-                IndicaAprovacaoMedica = arq.IndicaCadastroMedico
-            };
-
-            this._context.Save(arquivo, EntityState.Added);
-        }
-
-        public List<ArquivoModel> CarregarArquivos(int idUsuario)
-        {
-            return this._context.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
         } 
     }
 }
