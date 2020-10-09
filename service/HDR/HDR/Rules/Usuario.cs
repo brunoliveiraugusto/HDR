@@ -10,14 +10,6 @@ using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
-    public struct Medico
-    {
-        public int IdMedico { get; set; }
-        public string NomeCompleto { get; set; }
-        public string Crm { get; set; }
-        public List<InformacoesTrabalho> InformacoesTrabalhoMedico { get; set; }
-    }
-
     public struct InformacoesTrabalho
     {
         public string NomeLocalTrabalho { get; set; }

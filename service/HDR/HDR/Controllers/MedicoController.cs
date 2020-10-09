@@ -1,5 +1,4 @@
 ﻿using HDR.Context;
-using HDR.Models;
 using HDR.Rules;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace HDR.Controllers
 {
-    public class ArquivoController : Controller
+    public class MedicoController : Controller
     {
-        [Route("Arquivo/SalvarArquivo")]
-        [HttpPost]
-        public bool SalvarArquivo([FromBody] Arquivo arquivo)
+        [Route("Medico/CarregarArquivosPorUsuario")]
+        [HttpGet]
+        public List<AnexoArquivo> CarregarArquivosPorUsuario(int idUsuario)
         {
             using (var contexto = new Contexto())
             {
-                new Arquivo(contexto).SalvarArquivo(arquivo);
-                return true;
+                return new Medico(contexto).AdicionarMedicosResponsaveisPorArquivo(idUsuario);
             }
         }
     }

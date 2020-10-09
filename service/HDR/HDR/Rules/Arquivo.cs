@@ -1,5 +1,6 @@
 ﻿using HDR.Context;
 using HDR.Generics;
+using HDR.Interfaces;
 using HDR.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -10,29 +11,17 @@ using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
-    public struct AnexoArquivo
-    {
-        public string NomeArquivo { get; set; }
-        public string Arquivo { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public string NomeMedico { get; set; }
-        public bool IndicaAprovacaoMedica { get; set; }
-        public int? IdUsuarioMedico { get; set; }
-        public string Crm { get; set; }
-        public List<DadosMedicoModel> InformacoesMedico { get; set; }
-    }
-
     public class Arquivo
     {
+        private readonly IContextRepository _context;
+
         public Arquivo() { }
 
-        public Arquivo(Contexto contexto)
+        public Arquivo(IContextRepository context)
         {
-            this.Contexto = contexto;
+            _context = context;
         }
 
-        [JsonIgnore]
-        private Contexto Contexto { get; set; }
         public int IdArquivo { get; set; }
         public string ArquivoAnexado { get; set; }
         public int IdUsuario { get; set; }
@@ -44,11 +33,11 @@ namespace HDR.Rules
 
         public void SalvarArquivo(Arquivo arquivo)
         {
-            this.ValidarInformacoesPreenchidas(arquivo);
+            this.ValidarArquivo(arquivo);
             this.Salvar(arquivo);
         }
 
-        public void ValidarInformacoesPreenchidas(Arquivo arq)
+        public void ValidarArquivo(Arquivo arq)
         {
             if(arq.ArquivoAnexado.IsNullOrEmpty())
             {
@@ -79,84 +68,12 @@ namespace HDR.Rules
                 IndicaAprovacaoMedica = arq.IndicaCadastroMedico
             };
 
-            this.Contexto.Add(arquivo);
-            this.Contexto.SaveChanges();
-        }
-
-        public List<AnexoArquivo> BuscarArquivosEMedico(List<ArquivoModel> arquivos)
-        {
-            var arquivosAnexados = new List<AnexoArquivo>();
-
-            foreach(var arquivo in arquivos)
-            {
-                if(arquivo.IndicaAprovacaoMedica && !arquivo.IdUsuarioMedico.IsNull())
-                {
-                    var medico = this.Contexto.DadosMedico.Where(usuarioMedico => usuarioMedico.IdUsuario == arquivo.IdUsuarioMedico)
-                            .Include(usuario => usuario.Usuario).ToList();
-
-                    arquivosAnexados.Add(new AnexoArquivo()
-                    {
-                        Arquivo = arquivo.Arquivo,
-                        DataCriacao = arquivo.DataCriacao,
-                        IndicaAprovacaoMedica = arquivo.IndicaAprovacaoMedica,
-                        NomeArquivo = arquivo.NomeArquivo,
-                        NomeMedico = medico.FirstOrDefault().Usuario.NomeUsuario,
-                        IdUsuarioMedico = arquivo.IdUsuarioMedico,
-                        Crm = medico.FirstOrDefault().Usuario.Login,
-                        InformacoesMedico = medico  
-                    });
-                }
-                else
-                {
-                    arquivosAnexados.Add(new AnexoArquivo()
-                    {
-                        Arquivo = arquivo.Arquivo,
-                        DataCriacao = arquivo.DataCriacao,
-                        IndicaAprovacaoMedica = arquivo.IndicaAprovacaoMedica,
-                        NomeArquivo = arquivo.NomeArquivo,
-                        IdUsuarioMedico = null
-                    });
-                }
-            }
-
-            return arquivosAnexados;
+            this._context.Save(arquivo, EntityState.Added);
         }
 
         public List<ArquivoModel> CarregarArquivos(int idUsuario)
         {
-            return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
-        }
-
-        public List<AnexoArquivo> CarregarArquivosSalvo(int idUsuario)
-        {
-            var arquivos = this.CarregarArquivos(idUsuario);
-
-            return this.BuscarArquivosEMedico(arquivos);
+            return this._context.Arquivos.Where(arquivo => arquivo.IdUsuario == idUsuario).ToList();
         } 
-
-        public List<ArquivoModel> CarregarSolicitacoes(int idUsuarioMedico)
-        {
-            return this.Contexto.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false)
-                .Include(usuario => usuario.Usuario).ToList();
-        }
-
-        public bool AprovarSolicitacaoDocumento(int idArquivo)
-        {
-            var arquivo = this.Contexto.Arquivos.FirstOrDefault(arq => arq.IdArquivo == idArquivo);
-
-            if (!arquivo.IsNull())
-            {
-                arquivo.IndicaAprovacaoMedica = true;
-
-                this.Contexto.Entry(arquivo).State = EntityState.Modified;
-                this.Contexto.SaveChanges();
-
-                return true;
-            }
-            else
-            {
-                throw new Exception("Houve uma falha ao aprovar a solicitação");
-            }
-        }
     }
 }

@@ -1,12 +1,26 @@
-﻿using System;
+﻿using HDR.Context;
+using HDR.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace HDR.Models
 {
     [Table("ARQUIVO")]
     public class ArquivoModel
     {
+        private readonly IContextRepository _context;
+
+        public ArquivoModel() : this(new Contexto()) { }
+
+        public ArquivoModel(IContextRepository context)
+        {
+            _context = context;
+        }
+
         [Key, Column("ID_ARQUIVO")]
         public int IdArquivo { get; set; }
 
@@ -33,6 +47,15 @@ namespace HDR.Models
 
         public virtual UsuarioModel Usuario { get; set; }
 
+        public List<ArquivoModel> CarregarArquivosComSolicitacoesNaoAprovadas(int idUsuarioMedico)
+        {
+            return this._context.Arquivos.Where(arquivo => arquivo.IdUsuarioMedico == idUsuarioMedico && arquivo.IndicaAprovacaoMedica == false)
+                .Include(usuario => usuario.Usuario).ToList();
+        }
 
+        public ArquivoModel CarregarArquivoEspecifico(int idArquivo)
+        {
+            return this._context.Arquivos.FirstOrDefault(arq => arq.IdArquivo == idArquivo);
+        }
     }
 }
