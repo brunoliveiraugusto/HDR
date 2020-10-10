@@ -1,25 +1,24 @@
-﻿using HDR.Context;
-using HDR.Generics;
+﻿using HDR.Generics;
 using HDR.Interfaces;
 using HDR.Models;
 using System;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace HDR.Rules
 {
     public class Autenticacao
     {
         private readonly IContextRepository _context;
+        private readonly ILogin _login;
 
-        public Autenticacao(IContextRepository context)
+        public Autenticacao(IContextRepository context, ILogin login)
         {
             _context = context;
+            _login = login;
         }
 
         public DadosUsuario AutenticarUsuario(string login, string password, bool indicaPaciente)
         {
-            Login.ValidarDadosDeLoginPreenchido(login, password, indicaPaciente);
+            _login.ValidarDadosDeLogin(login, password, indicaPaciente);
 
             var usuario = new UsuarioModel(_context).IndicaUsuarioValido(login, password, indicaPaciente);
 

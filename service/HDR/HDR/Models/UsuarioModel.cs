@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HDR.Models
 {   
     [Table("USUARIO")]
-    public class UsuarioModel
+    public class UsuarioModel : IModel
     {
         private readonly IContextRepository _context;
 
@@ -43,6 +43,11 @@ namespace HDR.Models
         {
             return _context.Usuarios.Where(usuario => usuario.Login == login && usuario.ChaveAcesso == password && usuario.IndicaPaciente == indicaPaciente)
                 .FirstOrDefault();
+        }
+
+        public void Salvar(IModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

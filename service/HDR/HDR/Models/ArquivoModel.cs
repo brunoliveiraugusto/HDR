@@ -11,7 +11,7 @@ using System.Linq;
 namespace HDR.Models
 {
     [Table("ARQUIVO")]
-    public class ArquivoModel
+    public class ArquivoModel : IArquivoModel
     {
         private readonly IContextRepository _context;
 

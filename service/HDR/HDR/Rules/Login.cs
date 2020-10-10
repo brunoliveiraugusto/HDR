@@ -1,16 +1,14 @@
 ﻿using HDR.Generics;
+using HDR.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HDR.Rules
 {
-    public class Login
+    public class Login : ILogin
     {
         public Login() { }
 
-        public static void ValidarDadosDeLoginPreenchido(string login, string password, bool indicaPaciente)
+        public void ValidarDadosDeLogin(string login, string password, bool indicaPaciente)
         {
             if (login.IsNullOrEmpty())
             {
